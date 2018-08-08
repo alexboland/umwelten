@@ -1,0 +1,49 @@
+.defaultList {
+    display: block;
+    margin-left: -2.2em;
+}
+
+.defaultList li {
+    list-style: none;
+}
+
+.nestedList ul {
+    display: inline;
+}
+
+.nestedList ul li {
+    float: left;
+    margin-right: 0.2em;
+    padding-right: 0.2em;
+}
+
+.nestedList button {
+}
+
+.bookLinks {
+  border-right: 0.05em solid #dddddd;
+}
+
+.bookLinks ul {
+  display: inline;
+}
+
+.bookLinks ul li {
+    float: left;
+    margin-right: 0.2em;
+    padding-right: 0.2em;
+    border-right: 0.05em solid #dddddd;
+}
+
+.defaultListItem {
+    border: 0.03em solid #dddddd;
+    margin-top: 0.3em;
+    padding: 0.3em;
+}
+
+.defaultListItem ul li {
+}
+
+.bookRequestItem {
+    padding-bottom: 1.2em;
+}

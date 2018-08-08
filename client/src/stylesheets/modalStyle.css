@@ -1,0 +1,45 @@
+.modalDefault {
+    border: 1px #b3b3b3;
+    margin-top: 20%;
+    margin-left: 20%;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    padding: 4px;
+    width: 32em;
+    border: 1px solid #000000;
+    outline: none;
+    background: #e5e5e5;
+    opacity: 0.8;
+}
+
+.modalDefault ul {
+    list-style: none;
+}
+
+.modalDefault ul li {
+    margin-bottom: 0.4em;
+}
+
+button {
+    border: 0.07em solid #000000;
+    background: #ffffff;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    padding: 0.2em;
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    color: #000000;
+    font-size: 15px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+button:hover {
+    border-top-color: #000000;
+    background: #000000;
+    color: #ccc;
+    cursor:pointer;
+}
+button:active {
+    border-top-color: #ffffff;
+    background: #ffffff;
+}

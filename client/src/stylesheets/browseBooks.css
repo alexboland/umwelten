@@ -1,0 +1,24 @@
+.searchForm {
+    display: block;
+    overflow: auto;
+}
+
+.searchForm div {
+    float: left;
+    padding-right: 0.5em;
+    display: block;
+}
+
+.searchForm input {
+    width: 20em;
+    height: 1.6em;
+}
+
+.searchForm button {
+    height: 1.6em;
+    margin-top: 0.1em;
+}
+
+.searchResults {
+
+}

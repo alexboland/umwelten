@@ -1,0 +1,66 @@
+.addComment {
+    overflow: auto;
+}
+
+.addComment textarea {
+    width: 81%;
+    height: 20em;
+    float: left;
+    resize: none;
+}
+
+.addComment button {
+    float: left;
+}
+
+.addComment div {
+    display: block;
+    overflow: auto;
+}
+
+.comment {
+    width: 80%;
+    display: block;
+    margin-bottom: 2em;
+    border-top: 1px solid #dddddd;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    font-family: Gill Sans, Humanist, Sans-Serif;
+}
+
+.commentBody {
+    padding-bottom: 0.5em;
+    font-size: 1em;
+    font-weight: 400;
+
+}
+
+.commentHeading {
+    font-weight: 600;
+    padding-bottom: 0.5em;
+    font-size: 1.2em;
+}
+
+.commentFooter {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.title {
+    padding-bottom: 1em;
+}
+
+.createButtons div {
+    float: left;
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+}
+
+.title input {
+    width: 81.4%;
+    border: 0.5px solid #555555;
+    height: 1.6em;
+}

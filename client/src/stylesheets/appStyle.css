@@ -1,0 +1,84 @@
+.appText {
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    overflow: auto;
+}
+
+.mainMenu {
+    overflow: auto;
+    display: inline-block;
+    float: left;
+}
+
+.mainMenu ul {
+  float: right;
+}
+
+.mainMenu li {
+  color: #000000;
+  display: inline-block;
+  padding: 0.8em;
+  font-size: 1.2em;
+
+}
+
+.mainMenu a {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header {
+    position: relative;
+    top: 1em;
+    right: 1em;
+    width: 100%;
+    overflow:auto;
+}
+
+.content {
+    overflow:auto;
+    position: relative;
+    width: 80%;
+    padding: 2em;
+    margin: 1em;
+}
+
+.logo {
+    width: 20%;
+    display: inline-block;
+    margin-left: 0.2em;
+    padding-top: 1em;
+    float: left;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 2em;
+    margin-left: 1.5em;
+}
+
+button {
+    border: 0.07em solid #000000;
+    background: #ffffff;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    padding: 0.2em;
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    color: #000000;
+    font-size: 15px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+button:hover {
+    border-top-color: #000000;
+    background: #000000;
+    color: #ccc;
+    cursor:pointer;
+}
+button:active {
+    border-top-color: #ffffff;
+    background: #ffffff;
+}
