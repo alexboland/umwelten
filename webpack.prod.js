@@ -6,6 +6,9 @@ const config = {
     path: path.resolve(__dirname, 'client/public/javascripts'),
     filename: 'bundle.js'
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.css']
+  },
   watch: false,
   mode: 'production',
   devtool: "#eval-source-map",
