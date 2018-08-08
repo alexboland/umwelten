@@ -35,7 +35,8 @@
   },
   "scripts": {
     "client": "webpack --config webpack.config.js",
-    "start": "npm install && knex migrate:latest && node server/app.js && webpack --config webpack.prod.js",
+    "start": "npm install && knex migrate:latest && node server/app.js",
+    "postinstall": "webpck --config webpack.prod.js",
     "dev": "nodemon --watch server server/app.js && webpack --config webpack.config.js"
   }
 }
