@@ -3,7 +3,6 @@ var router = express.Router();
 var request = require('request');
 const knex = require('knex')(require('../../knexfile'));
 var path = require('path');
-var googleApiKey = require('../../googleapikey.js');
 
 router.get('/search/:term', function(req, res) {
   request('https://www.googleapis.com/books/v1/volumes?q=' + req.params.term + '&maxResults=20' + '&key=' + process.env.GOOGLE_API_KEY,
