@@ -16,10 +16,10 @@ class BookRequests extends React.Component {
         body: JSON.stringify({ user_uuid: requesterUuid, book_uuid: bookUuid })
       })
       .then(response => response.json())
-      .then(response => { if (response.success) { self.setState({requests: this.state.requests.filter(request => request.uuid != requestUuid)}) } })
+      .then(response => { if (response.success) { self.props.actionHandler(requestUuid); } })
   }
 
-  clickReject (requestUuid) {
+  rejectRequest (requestUuid) {
     let self = this;
     fetch('/bookRequests/reject',
       {credentials: 'same-origin',
@@ -28,20 +28,14 @@ class BookRequests extends React.Component {
         body: JSON.stringify({ request_uuid: requestUuid })
       })
       .then(response => response.json())
-      .then(response => { if (response.success) { self.setState({requests: this.state.requests.filter(request => request.uuid != request_uuid)}) } })
-  }
-
-  componentDidMount() {
-    fetch('/bookRequests/list/', {credentials: 'same-origin'})
-      .then(results => results.json())
-      .then(results => {this.setState({requests: results.requests}); } )
+      .then(response => { if (response.success) { self.props.actionHandler(requestUuid); } })
   }
 
   render() {
     return <div className={libStyles.requestList}>
       <h2>Requests</h2>
       <ul className={`${listStyles.defaultList}`}>
-        {this.state.requests.map(request => <li className={`${listStyles.defaultListItem} ${listStyles.bookRequestItem}`} key={request.uuid}><ul>
+        {this.props.requests.map(request => <li className={`${listStyles.defaultListItem} ${listStyles.bookRequestItem}`} key={request.uuid}><ul>
           <li className={libStyles.requestHeader}>
             <Link to={'/users/' + request.requester_uuid + '/bookshelf'}>{request.username}</Link> wants to borrow:
           </li>
@@ -51,8 +45,8 @@ class BookRequests extends React.Component {
           <li>{request.publisher}</li>
           <li className={`${listStyles.nestedList}`}>
             <ul>
-              <li><button onClick={() => this.acceptRequest(request.requester_uuid, request.book_uuid, request.uuid)}>Accept</button></li>
-              <li><button onClick={this.clickReject}>Reject</button></li>
+              <li><button onClick={ () => this.acceptRequest(request.requester_uuid, request.book_uuid, request.uuid) }>Accept</button></li>
+              <li><button onClick={ () => this.rejectRequest(request.uuid) }>Reject</button></li>
             </ul>
           </li>
         </ul></li>)}

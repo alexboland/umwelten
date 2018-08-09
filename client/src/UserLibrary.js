@@ -12,27 +12,6 @@ import Profile from './Profile.js';
 import BorrowedBooks from "./BorrowedBooks";
 import BookRequests from "./BookRequests";
 import libraryStyles from './stylesheets/userLibrary.css'
-import appStyles from './stylesheets/appStyle.css'
-
-const menuStyle = {
-  float: 'left',
-  marginRight: '4em',
-  paddingLeft: '0.6em',
-  marginTop:'0.4em'
-}
-
-const menuItemStyle = {
-  borderBottom: '1px solid #dedede',
-  display: 'block',
-  fontSize: '1.2em',
-  paddingRight: '4em'
-}
-
-const mainStyle = {
-  marginLeft: '10em',
-  marginTop: '2.2em',
-  width: '60%'
-}
 
 class LibMenu extends React.Component {
   render() {
@@ -41,7 +20,7 @@ class LibMenu extends React.Component {
           <li><Link to={'/users/' + this.props.user + '/bookshelf'}>Bookshelf</Link></li>
           <li><Link to={'/users/' + this.props.user + '/profile'}>Profile</Link></li>
           {this.props.user == currentUser && <li><Link to={'/users/' + this.props.user + '/borrowedBooks'}>Books I'm Borrowing</Link></li>}
-          {this.props.user == currentUser && <li><Link to={'/users/' + this.props.user + '/bookRequests'}>Pending Requests</Link></li>}
+          {this.props.user == currentUser && <li><Link to={'/users/' + this.props.user + '/bookRequests'}>{'Pending Requests (' + this.props.numRequests + ')'}</Link></li>}
       </ul> }</UserContext>
     </div>
   }
@@ -49,9 +28,25 @@ class LibMenu extends React.Component {
 
 class UserLibrary extends React.Component {
 
+  state = { pendingRequests: [] };
+
+  retrievePendingRequests () {
+    fetch('/bookRequests/list/', {credentials: 'same-origin'})
+      .then(results => results.json())
+      .then(results => {this.setState({pendingRequests: results.requests}); } )
+  }
+
+  componentDidMount () {
+    this.retrievePendingRequests();
+  }
+
+  handleRequestAction(requestUuid) {
+    this.setState({pendingRequests: this.state.pendingRequests.filter(request => request.uuid != requestUuid)})
+  }
+
   render() {
     return <div className={`${libraryStyles.libraryMain}`}>
-      <LibMenu user={this.props.match.params.user} />
+      <LibMenu user={this.props.match.params.user} numRequests={this.state.pendingRequests.length} />
       <div className={`${libraryStyles.libraryContent}`}>
         <UserContext>{currentUser =>
             <Router>
@@ -60,7 +55,12 @@ class UserLibrary extends React.Component {
                   return <Bookshelf user={this.props.match.params.user}/>
                 }}/>
                 <Route path={'/users/' + this.props.match.params.user + '/profile'} render={() => {return <Profile user={this.props.match.params.user} />} }/>
-                {this.props.match.params.user == currentUser && <Route path={'/users/' + this.props.match.params.user + '/bookRequests/'} component={BookRequests}/>}
+                {this.props.match.params.user == currentUser &&
+                  <Route
+                    path={'/users/' + this.props.match.params.user + '/bookRequests/'}
+                    render={ () => {return <BookRequests requests={this.state.pendingRequests} actionHandler={this.handleRequestAction.bind(this)}/>} }
+                  />
+                }
                 {this.props.match.params.user == currentUser && <Route path={'/users/' + this.props.match.params.user + '/borrowedBooks/'} component={BorrowedBooks}/>}
               </Switch>
             </Router>
