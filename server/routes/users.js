@@ -81,7 +81,7 @@ router.get('/books/:user', function(req, res) {
     .offset(page*limit)
     .orderBy(orderBy, direction);
 
-  let getTotal = knex('books').where({owner_uuid: req.session.user.uuid}).count('*');
+  let getTotal = knex('books').where({owner_uuid: req.params.user}).count('*');
 
   Promise.all([getBooks, getTotal])
     .then(([books, total]) => {
