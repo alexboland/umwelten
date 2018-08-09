@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const config = {
-  entry: './client/src/app.js',
+  entry: './client/src/App.js',
   output: {
     path: path.resolve(__dirname, 'client/public/javascripts'),
     filename: 'bundle.js'
