@@ -18,6 +18,7 @@ import NewVolumeDiscussionPage from './NewVolumeDiscussionPage.js'
 import SignUp from './SignUp.js'
 import BrowseUsers from './BrowseUsers.js'
 import appStyle from './stylesheets/appStyle.css'
+import About from './About.js'
 
 const linkStyle = {
 
@@ -68,6 +69,7 @@ class App extends React.Component {
       <UserContext.Provider value={this.state.user && this.state.user.uuid}>
          <div className={`${appStyle.content}`}>
           <Switch>
+            <Route exact path='/' component={About} />
             <Route path='/signUp/' render={() => {return <SignUp handler={this.loginHandler} />; } } />
             <Route path='/login/' render={() => {return <Login handler={this.loginHandler} />; } } />
             { this.state.user && <Route path={'/users/:user'} component={UserLibrary} />}

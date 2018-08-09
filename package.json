@@ -36,7 +36,7 @@
     "client": "webpack --config webpack.config.js",
     "start": "npm install && knex migrate:latest && node server/app.js",
     "postinstall": "webpack --config webpack.prod.js",
-    "dev": "source set_local_vars.sh && nodemon --watch server server/app.js && webpack --config webpack.config.js",
+    "dev": "source set_local_vars.sh && nodemon --watch server server/app.js",
     "seed": "source set_local_vars.sh && knex seed:run"
   }
 }
