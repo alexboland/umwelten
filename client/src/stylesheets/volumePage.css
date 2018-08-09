@@ -1,0 +1,22 @@
+.volumePage {
+
+}
+
+.volumePage div {
+    border-bottom: solid 1px #eeeeee;
+}
+
+.volumePage ul {
+    display: inline;
+    list-style: none;
+}
+
+.volumePage li {
+  padding-bottom: 0.5em;
+}
+
+.volumePage h3 {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-bottom: 0em;
+}

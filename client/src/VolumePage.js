@@ -1,29 +1,44 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import vpStyle from './stylesheets/volumePage.css'
 
 class VolumePage extends React.Component {
 
-  state = { title: '', subtitle: '', author: '', publisher: '', owners: [], discussions: []}
+  state = { title: '', subtitle: '', author: '', publisher: '', owners: [], discussions: [] };
 
   componentDidMount() {
     fetch('/volumes/view/' + this.props.match.params.volume, {credentials: 'same-origin'})
       .then(results => results.json())
       .then(results => {
         let volume = results.volume;
-        this.setState({title: volume.title, subtitle: volume.subtitle, author: volume.author, publisher: volume.publisher, owners: results.users, discussions: results.discussions})
+        this.setState({
+          title: volume.title,
+          subtitle: volume.subtitle,
+          author: volume.author,
+          publisher: volume.publisher,
+          owners: results.users,
+          discussions: results.discussions,
+          google_volume: volume.google_volume})
       });
   }
 
-  render () { return <div>
+  render () { return <div className={vpStyle.volumePage}>
     <div>
-      {this.state.title}<br />
-      {this.state.subtitle}<br />
-      {this.state.author}<br />
-      {this.state.publisher}<br />
+      <ul>
+        <li><h3>{this.state.title}</h3></li>
+        <li>{this.state.subtitle}</li>
+        <li>{this.state.author}</li>
+        <li>{this.state.publisher}</li>
+        <li><a href={'https://books.google.com/books?id=' + this.state.google_volume} target="_blank">Go to Google Books page</a></li>
+      </ul>
     </div>
     <div>
       <h3>Owned by:</h3>
-      {this.state.owners.map(owner => <Link to={'/users/' + owner.user_uuid + '/bookshelf'}>{owner.username}</Link> )}
+      <ul>
+        {this.state.owners.map(owner => <li>
+          <Link to={'/users/' + owner.user_uuid + '/bookshelf'}>{owner.username}</Link>
+        </li> )}
+      </ul>
       <h3>Discussions:</h3>
       <ul>
         {this.state.discussions.map(discussion => { return <li>

@@ -41,9 +41,11 @@ class SearchVolumes extends React.Component {
   }
 
   addToBookshelf(volume) {
+    console.log(volume);
     fetch('/books/add', {credentials: 'same-origin', method: 'post', headers: {"Content-Type": "application/json"},
       body: JSON.stringify({volumeId: volume.id,
         title: volume.title,
+        subtitle: volume.subtitle,
         author: (volume.authors || []).join('|'),
         publisher: volume.publisher,
         ISBN: volume.volumeItem }) })
