@@ -1,6 +1,7 @@
 .libraryMenu {
     float: left;
     margin-right: 3em;
+    overflow:auto;
 }
 
 .libraryMenu li {
@@ -22,8 +23,7 @@
 }
 
 .libraryContent {
-    float: left;
-    min-width: 60%;
+    overflow: auto;
 }
 
 .requestList li {
@@ -37,5 +37,5 @@
 }
 
 .libraryMain {
-
+    overflow: auto;
 }
