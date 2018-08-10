@@ -50,7 +50,7 @@ class BorrowedBooks extends React.Component {
                 <ul>
                   <li>{book.title}</li>
                   <li>{book.subtitle}</li>
-                  <li>{book.author.replace('|', ',')}</li>
+                  <li>{book.author && book.author.replace(/\|/g, ', ')}</li>
                   <li>{book.publisher}</li>
                   <li>Borrowed from <Link to={'/users/' + book.owner_uuid + '/bookshelf'}>{book.username}</Link></li>
                   <li><button onClick={() => {this.returnBook(book.book_uuid)}}>Return</button></li>

@@ -102,7 +102,7 @@ class Bookshelf extends React.Component {
           { currentUser => this.state.books
             .map(book =>
               <li className={`${listStyles.defaultListItem}`}>
-                <BookItem title={book.title} subtitle={book.subtitle} author={book.author && book.author.replace('|', ', ')}
+                <BookItem title={book.title} subtitle={book.subtitle} author={book.author && book.author.replace(/\|/g, ', ')}
                   publisher={book.publisher} book_uuid={book.book_uuid} user={this.props.user} volume_uuid={book.volume_uuid}
                   currentBookUser={book.current_user_uuid} currentBookUserName={book.borrower} requested={book.request_uuid}
                   currentAppUser={currentUser} removeFromShelf={() => { this.removeFromShelf(book.book_uuid) } }  />

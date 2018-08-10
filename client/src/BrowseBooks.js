@@ -63,7 +63,7 @@ class BrowseBooks extends React.Component {
           <ul>
             <li>{book.title}</li>
             <li>{book.subtitle}</li>
-            <li>{book.author}</li>
+            <li>{book.author && book.author.replace(/\|/g, ', ')}</li>
             <li>{book.publisher}</li>
             <li className={`${listStyles.bookLinks} ${listStyles.nestedList}`}>
               <ul><li>Owned by:</li>
