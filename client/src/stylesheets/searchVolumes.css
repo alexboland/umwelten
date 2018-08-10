@@ -1,0 +1,16 @@
+.searchBox {
+    position: relative;
+}
+
+.searchBox input {
+    width: 35em;
+    height: 2em;
+    weight: bold;
+    border: 1px solid;
+}
+
+.searchBox .icon {
+    position: absolute;
+    top: 5.7px;
+    left: 22.8em;
+}

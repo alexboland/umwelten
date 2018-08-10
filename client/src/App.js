@@ -60,7 +60,7 @@ class App extends React.Component {
             { !this.state.user && <li><Link to='/login'>Login</Link></li> }
             { this.state.user && <li><Link to={'/users/' + this.state.user.uuid + '/bookshelf'}>My Library</Link></li> }
             <li><Link to='/browseBooks'>Browse Books</Link></li>
-            { this.state.user && <li><Link to='/searchVolumes'>Search Volumes</Link></li> }
+            { this.state.user && <li><Link to='/searchVolumes'>Add Books</Link></li> }
             { this.state.user && <li><Link to='/searchUsers'>Search Users</Link></li> }
             { this.state.user && <li><Link to='/logout' onClick={this.logout}>Logout</Link></li> }
           </ul>

@@ -89,3 +89,10 @@ button:active {
   font-weight: 300;
   margin-left: 2em;
 }
+
+h3 {
+  font-weight: 300;
+  font-size: 1.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #eeeeee;
+}
