@@ -3,14 +3,15 @@
 }
 
 .searchBox input {
-    width: 35em;
-    height: 2em;
+    width: 24em;
+    height: 1.5em;
     weight: bold;
     border: 1px solid;
+    font-size: 1em;
 }
 
 .searchBox .icon {
     position: absolute;
-    top: 5.7px;
+    top: 6px;
     left: 22.8em;
 }
