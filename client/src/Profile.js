@@ -7,17 +7,18 @@ import {
   Redirect
 } from 'react-router-dom';
 import UserContext from './UserContext.js'
+import profileStyles from './stylesheets/userProfile.css'
 
 
 class ViewProfile extends React.Component {
 
   render() {
-    return <div>
+    return <div className={profileStyles.userProfile}>
       <h3>{this.props.userInfo.username}</h3>
       <h4>{this.props.userInfo.full_name}</h4>
       <h4>{this.props.userInfo.email_address}</h4>
-      <p>{this.props.userInfo.bio}</p>
       <p>{this.props.userInfo.location}</p>
+      <p>{this.props.userInfo.bio}</p>
       <UserContext>{currentUser => {return this.props.user == currentUser && <Link to={'/users/' + this.props.user + '/profile/editProfile'}>Edit Profile</Link>}}
       </UserContext>
     </div>
@@ -39,22 +40,37 @@ class EditProfile extends React.Component {
       });
   }
 
+  cancelAndRedirect() {
+    this.setState({ redirect: true })
+  }
+
   handleChange(key, evt) {
     this.setState({[key]: evt.target.value })
   }
 
   render() {
-    return <div>
-      <div>
+    return <div className={profileStyles.editProfile}>
+      <div className={profileStyles.fields}>
         <ul>
-          <li>Name <input type="text" value={this.state.fullName} onChange={this.handleChange.bind(this, 'fullName')} /></li>
-          <li>Biography <input type="text" value={this.state.bio} onChange={this.handleChange.bind(this, 'bio')} /></li>
-          <li>Location <input type="text" value={this.state.location} onChange={this.handleChange.bind(this, 'location')} /></li>
+          <li>
+            <div>Name</div>
+            <div><input type="text" value={this.state.fullName} onChange={this.handleChange.bind(this, 'fullName')} /></div>
+          </li>
+          <li>
+            <div>Location</div>
+            <div><input type="text" value={this.state.location} onChange={this.handleChange.bind(this, 'location')} /></div>
+          </li>
+          <li>
+            <div>Biography</div>
+            <div><textarea value={this.state.bio} onChange={this.handleChange.bind(this, 'bio')} /></div>
+          </li>
         </ul>
       </div>
-      { this.state.redirect && <Redirect to={'/users/' + this.props.user + '/profile'} /> }
-      <a onClick={this.saveAndRedirect.bind(this)}>Submit</a>
-      <Link to={'/users/' + this.props.user + '/profile'}>Cancel</Link>
+      <div className={profileStyles.buttons}>
+        { this.state.redirect && <Redirect to={'/users/' + this.props.user + '/profile'} /> }
+        <button onClick={this.saveAndRedirect.bind(this)}>Submit</button>
+        <button onClick={this.cancelAndRedirect.bind(this)}>Cancel</button>
+      </div>
     </div>
   }
 }
