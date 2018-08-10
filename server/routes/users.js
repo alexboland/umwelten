@@ -69,6 +69,38 @@ router.post('/new', function(req, res, next) {
     })
 });
 
+router.post('/changePassword', function(req, res) {
+  if (req.body.newPass != req.body.repeatPassword) {
+    res.send({success: false, error: 'passwords do not match'})
+  } else {
+    let SALT_WORK_FACTOR = 10;
+    knex('users').where('uuid', '=', req.session.user.uuid)
+      .then(([user]) => {
+        return bcrypt.compare(req.body.oldPass, user.password);
+      })
+      .then(result => {
+        if (result) {
+          return bcrypt.genSalt(SALT_WORK_FACTOR);
+        } else {
+          throw 'wrong password'
+        }
+      })
+      .then(salt => {
+        return Promise.all([bcrypt.hash(req.body.newPass, salt), salt]);
+      })
+      .then(([phash, salt]) => {
+        return knex('users').where({uuid: req.session.user.uuid}).update({password: phash, salt: salt})
+      })
+      .then(result => {
+        res.send({success: true});
+      })
+      .catch(err => {
+        res.send({success: false, error: err});
+      })
+  }
+
+});
+
 router.get('/books/:user', function(req, res) {
 
   let page = req.query.page || 0;

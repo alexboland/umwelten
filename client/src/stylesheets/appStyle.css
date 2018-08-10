@@ -96,3 +96,9 @@ h3 {
   padding-bottom: 0.3em;
   border-bottom: 1px solid #eeeeee;
 }
+
+h4 {
+    font-weight: 300;
+    font-size: 1.2em;
+    padding-bottom: 0.2em;
+}

@@ -19,6 +19,7 @@ import SignUp from './SignUp.js'
 import BrowseUsers from './BrowseUsers.js'
 import appStyle from './stylesheets/appStyle.css'
 import About from './About.js'
+import UserSettings from './UserSettings.js'
 
 const linkStyle = {
 
@@ -62,6 +63,7 @@ class App extends React.Component {
             <li><Link to='/browseBooks'>Browse Books</Link></li>
             { this.state.user && <li><Link to='/searchVolumes'>Add Books</Link></li> }
             { this.state.user && <li><Link to='/searchUsers'>Search Users</Link></li> }
+            { this.state.user && <li><Link to='/settings'>Settings</Link></li> }
             { this.state.user && <li><Link to='/logout' onClick={this.logout}>Logout</Link></li> }
           </ul>
         </div>
@@ -79,6 +81,7 @@ class App extends React.Component {
             <Route path={'/discussions/view/:discussion'} component={VolumeDiscussionPage} />
             <Route path={'/discussions/:volume/new'} component={NewVolumeDiscussionPage} />
             <Route path={'/searchUsers'} component={BrowseUsers} />
+            <Route path={'/settings'} component={UserSettings} />
           </Switch>
          </div>
       </UserContext.Provider>
