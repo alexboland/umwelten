@@ -1,0 +1,56 @@
+.editProfile input {
+    width: 34em;
+    height: 1.4em;
+}
+
+.editProfile ul {
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.editProfile li {
+    padding-top: 0.4em;
+    font-weight: 300;
+}
+
+.editProfile li div {
+    padding-top: 0.2em;
+}
+
+.editProfile textarea {
+    width: 34em;
+    height: 10em;
+    resize: none;
+}
+
+.fields {
+    padding: 0.2em;
+}
+
+.buttons {
+    padding: 0.2em;
+}
+
+.buttons button {
+    margin-left: 0;
+    margin-right: 0.5em;
+}
+
+.userProfile h3 {
+    font-size: 1.4em;
+    font-weight: 400;
+    padding-bottom: 0;
+    margin-bottom: 0.3em;
+}
+
+.userProfile h4 {
+    margin-top: 0.3em;
+    margin-bottom: 0.2em;
+    font-size: 1.1em;
+}
+
+.userProfile {
+    font-family: Geneva;
+}
