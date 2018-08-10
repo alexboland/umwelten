@@ -96,7 +96,7 @@ class Bookshelf extends React.Component {
 
   render() {
     return <div>
-      <h3>{ this.state.username }'s Books:</h3>
+      <h1>{ this.state.username }'s Books:</h1>
       <ul className={`${listStyles.defaultList}`}>
         <UserContext.Consumer>
           { currentUser => this.state.books

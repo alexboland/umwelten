@@ -25,7 +25,7 @@ class VolumePage extends React.Component {
   render () { return <div className={vpStyle.volumePage}>
     <div>
       <ul>
-        <li><h3>{this.state.title}</h3></li>
+        <li><h1>{this.state.title}</h1></li>
         <li>{this.state.subtitle}</li>
         <li>{this.state.author}</li>
         <li>{this.state.publisher}</li>
@@ -33,13 +33,13 @@ class VolumePage extends React.Component {
       </ul>
     </div>
     <div>
-      <h3>Owned by:</h3>
+      <h1>Owned by:</h1>
       <ul>
         {this.state.owners.map(owner => <li>
           <Link to={'/users/' + owner.user_uuid + '/bookshelf'}>{owner.username}</Link>
         </li> )}
       </ul>
-      <h3>Discussions:</h3>
+      <h1>Discussions:</h1>
       <ul>
         {this.state.discussions.map(discussion => { return <li>
           <Link to={'/discussions/view/' + discussion.discussion_uuid}>

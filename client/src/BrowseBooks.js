@@ -51,7 +51,7 @@ class BrowseBooks extends React.Component {
   }
 
   render () { return <div>
-    <h3>Books</h3>
+    <h1>Books</h1>
     <div className={browseBooksStyles.searchForm}>
       <div>Title <input type='text' onKeyPress={this.keyPressed.bind(this)} onChange={(evt) => this.setSearch(evt, 'searchTitle')} /></div>
       <div>Author <input type='text' onKeyPress={this.keyPressed.bind(this)} onChange={(evt) => this.setSearch(evt, 'searchAuthor')} /></div>

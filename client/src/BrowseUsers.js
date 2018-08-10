@@ -24,7 +24,7 @@ class BrowseUsers extends React.Component {
   }
 
   render() { return <div>
-      <h3>Users</h3>
+      <h1>Users</h1>
 
       <ul className={`${listStyles.defaultList}`}>
         {this.state.users.map(user => <li className={`${listStyles.defaultListItem}`}>

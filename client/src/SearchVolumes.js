@@ -63,7 +63,7 @@ class SearchVolumes extends React.Component {
 
   render() {
     return <div>
-      <h3>Add Books</h3>
+      <h1>Add Books</h1>
       <div className={searchStyles.searchBox}>
         <span><FaSearch className={searchStyles.icon} onClick={this.performSearch}></FaSearch></span>
         <input type='text' onChange={this.setQuery} onKeyPress={this.handleKeyPress} placeholder='Search here...' />

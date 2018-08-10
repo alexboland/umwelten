@@ -33,7 +33,7 @@ class NewVolumeDiscussionPage extends React.Component {
 
   render () { return <div>
       <div>
-        <h3>New Discussion ({this.state.volumeTitle})</h3>
+        <h1>New Discussion ({this.state.volumeTitle})</h1>
       </div>
       <div className={discussionStyles.addComment}>
         <div className={discussionStyles.title}>

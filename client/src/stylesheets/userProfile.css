@@ -38,14 +38,14 @@
     margin-right: 0.5em;
 }
 
-.userProfile h3 {
+.userProfile h1 {
     font-size: 1.4em;
     font-weight: 400;
     padding-bottom: 0;
     margin-bottom: 0.3em;
 }
 
-.userProfile h4 {
+.userProfile h2 {
     margin-top: 0.3em;
     margin-bottom: 0.2em;
     font-size: 1.1em;

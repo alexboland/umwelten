@@ -33,7 +33,7 @@ class BookRequests extends React.Component {
 
   render() {
     return <div className={libStyles.requestList}>
-      <h2>Requests</h2>
+      <h1>Requests</h1>
       <ul className={`${listStyles.defaultList}`}>
         {this.props.requests.map(request => <li className={`${listStyles.defaultListItem} ${listStyles.bookRequestItem}`} key={request.uuid}><ul>
           <li className={libStyles.requestHeader}>

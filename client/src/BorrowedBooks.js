@@ -41,7 +41,7 @@ class BorrowedBooks extends React.Component {
 
   render() {
     return <div>
-      <h3>Books I'm Borrowing</h3>
+      <h1>Books I'm Borrowing</h1>
       <ul className={`${listStyles.defaultList}`}>
         <UserContext.Consumer>
           { currentUser => this.state.books

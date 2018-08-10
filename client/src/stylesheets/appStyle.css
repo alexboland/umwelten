@@ -90,14 +90,14 @@ button:active {
   margin-left: 2em;
 }
 
-h3 {
+h1 {
   font-weight: 300;
   font-size: 1.6em;
   padding-bottom: 0.3em;
   border-bottom: 1px solid #eeeeee;
 }
 
-h4 {
+h2 {
     font-weight: 300;
     font-size: 1.2em;
     padding-bottom: 0.2em;

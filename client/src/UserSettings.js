@@ -35,9 +35,9 @@ class UserSettings extends React.Component {
 
   render() {
     return <div>
-      <h3>Settings</h3>
+      <h1>Settings</h1>
       <div className={settingsStyles.settingsSection}>
-        <h4>Change Password</h4>
+        <h2>Change Password</h2>
         <form onSubmit={this.handleSubmit}>
           <ul>
             <li>
