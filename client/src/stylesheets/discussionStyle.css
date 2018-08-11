@@ -1,12 +1,19 @@
 .addComment {
     overflow: auto;
+    margin-top: 1.2em;
+    margin-left: 2em;
 }
 
 .addComment textarea {
-    width: 81%;
-    height: 20em;
+    width: 84%;
+    font-size: 0.9em;
+    font-family: Arial, Sans-Serif;
+    line-height: 1.2em;
+    height: 16em;
     float: left;
     resize: none;
+    background: hsl(0, 0%, 98%);
+    border: 1px solid #bbbbbb;
 }
 
 .addComment button {
@@ -16,18 +23,19 @@
 .addComment div {
     display: block;
     overflow: auto;
+    padding-bottom: 0.4em;
 }
 
 .comment {
     width: 80%;
     display: block;
-    margin-bottom: 3em;
     border-bottom: 1px solid #dddddd;
-    padding-top: 2em;
+    padding-top: 1.5em;
     padding-bottom: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding-left: 3em;
+    padding-right: 3em;
     font-family: Gill Sans, Humanist, Sans-Serif;
+    background: hsl(0, 0%, 99%);
 }
 
 .commentBody {
@@ -46,7 +54,7 @@
 .commentFooter {
     font-style: italic;
     font-weight: 300;
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1.5em;
 
 }
