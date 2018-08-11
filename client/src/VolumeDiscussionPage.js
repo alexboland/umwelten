@@ -37,7 +37,7 @@ class VolumeDiscussionPage extends React.Component {
   render () { return <div>
       <div>
         <h1><Link to={'/volumes/' + this.state.volumeUuid}>{this.state.volumeTitle}</Link></h1>
-        <h1>{this.state.discussionTitle}</h1>
+        <h2>{this.state.discussionTitle}</h2>
       </div>
       <div>
         {this.state.comments.map(comment => <div className={discussionStyles.comment}>
