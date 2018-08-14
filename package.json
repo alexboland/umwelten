@@ -1,9 +1,6 @@
 {
   "name": "umwelten",
   "version": "0.0.0",
-  "engines": {
-    "node": "^8.0"
-  },
   "private": true,
   "dependencies": {
     "ajv": "^6.5.2",
