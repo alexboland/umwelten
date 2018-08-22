@@ -59,9 +59,8 @@
 @media only screen and (max-device-width: 768px) {
 
     .header {
-        position: absolute;
-        top: 1em;
-        right: 1em;
+        padding-top: 1em;
+        position: relative;
         width: 100%;
         overflow-x: hidden;
         overflow-y:auto;
@@ -76,8 +75,8 @@
     }
 
     .expandMainMenu .icon {
-        width: 2em;
-        height: 2em;
+        width: 3em;
+        height: 3em;
     }
 
     .logo {
@@ -88,7 +87,7 @@
     .logo a {
         text-decoration: none;
         color: #000000;
-        font-size: 1.7em;
+        font-size: 3em;
         margin-left: 1.5em;
     }
 
@@ -96,9 +95,10 @@
         overflow-x: hidden;
         overflow-y: auto;
         position: relative;
-        left: 40px;
+        left: 20px;
         top: -10px;
         width: 100%;
+        font-size: 2em;
     }
 
     .mainMenu ul {
