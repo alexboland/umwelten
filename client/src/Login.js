@@ -10,10 +10,17 @@ class Login extends React.Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setInfo = this.setInfo.bind(this);
+    this.keyPressed = this.keyPressed.bind(this);
   }
 
   setInfo (event, input) {
     this.setState({[input]: event.target.value})
+  }
+
+  keyPressed (event) {
+    if (event.key == 'Enter') {
+      this.handleSubmit(event);
+    }
   }
 
   handleSubmit (event) {
@@ -37,8 +44,8 @@ class Login extends React.Component {
       <h1>Login</h1>
       <div className={formStyles.loginForm}>
         <ul>
-          <li>Username: <input type="text" onChange={(evt) => {this.setInfo(evt, 'username')} }/></li>
-          <li>Password: <input type="password" onChange={(evt) => {this.setInfo(evt, 'password')}} /></li>
+          <li>Username: <input type="text" onChange={(evt) => {this.setInfo(evt, 'username')} } onKeyPress={this.keyPressed} /></li>
+          <li>Password: <input type="password" onChange={(evt) => {this.setInfo(evt, 'password')}} onKeyPress={this.keyPressed} /></li>
           <li><button onClick={this.handleSubmit}>Submit</button></li>
         </ul>
 
