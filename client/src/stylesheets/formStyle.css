@@ -1,0 +1,12 @@
+.loginForm {
+  border: 1px solid #eeeeee;
+}
+
+.loginForm ul {
+  display: block;
+  list-style: none;
+}
+
+.loginForm li {
+    padding: 0.2em;
+}

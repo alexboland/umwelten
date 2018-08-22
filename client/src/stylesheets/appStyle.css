@@ -3,12 +3,6 @@
     overflow: auto;
 }
 
-.mainMenu {
-    overflow: auto;
-    display: inline-block;
-    float: left;
-}
-
 .mainMenu ul {
   float: right;
 }
@@ -18,7 +12,6 @@
   display: inline-block;
   padding: 0.8em;
   font-size: 1.2em;
-
 }
 
 .mainMenu a {
@@ -27,12 +20,101 @@
   cursor: pointer;
 }
 
-.header {
-    position: relative;
-    top: 1em;
-    right: 1em;
-    width: 100%;
-    overflow:auto;
+@media only screen and (min-device-width: 768px) {
+
+    .mainMenu {
+        overflow: auto;
+        display: inline-block;
+        float: left;
+    }
+
+    .logo {
+        width: 20%;
+        display: inline-block;
+        margin-left: 0.2em;
+        padding-top: 1em;
+        float: left;
+    }
+
+    .logo a {
+        text-decoration: none;
+        color: #000000;
+        font-size: 2em;
+        margin-left: 1.5em;
+    }
+
+    .expandMainMenu {
+        display: none;
+    }
+
+    .header {
+        position: relative;
+        top: 1em;
+        right: 1em;
+        width: 100%;
+        overflow:auto;
+    }
+}
+
+@media only screen and (max-device-width: 768px) {
+
+    .header {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y:auto;
+        z-index: 15;
+    }
+
+    .expandMainMenu {
+        display: inline-block;
+        float: left;
+        margin-left: 3em;
+        margin-top: 0.5em;
+    }
+
+    .expandMainMenu .icon {
+        width: 2em;
+        height: 2em;
+    }
+
+    .logo {
+        display: inline-block;
+        float: left;
+    }
+
+    .logo a {
+        text-decoration: none;
+        color: #000000;
+        font-size: 1.7em;
+        margin-left: 1.5em;
+    }
+
+    .mainMenu {
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+        left: 40px;
+        top: -10px;
+        width: 100%;
+    }
+
+    .mainMenu ul {
+        width: 100%;
+    }
+
+    .mainMenu ul li {
+        width: 100%;
+        background: #ffffff;
+        display: block;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .hideNav {
+        display: none;
+    }
 }
 
 .content {
@@ -41,21 +123,6 @@
     width: 80%;
     padding: 2em;
     margin: 1em;
-}
-
-.logo {
-    width: 20%;
-    display: inline-block;
-    margin-left: 0.2em;
-    padding-top: 1em;
-    float: left;
-}
-
-.logo a {
-    text-decoration: none;
-    color: #000000;
-    font-size: 2em;
-    margin-left: 1.5em;
 }
 
 button {
