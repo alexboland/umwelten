@@ -1,6 +1,7 @@
 .defaultList {
     display: block;
     margin-left: -2.2em;
+    font-size: 1em;
 }
 
 .defaultList li {
@@ -36,9 +37,9 @@
 }
 
 .defaultListItem {
-    border: 0.03em solid #dddddd;
-    margin-top: 0.3em;
-    padding: 0.3em;
+    border-bottom: 0.03em solid #dddddd;
+    margin-bottom: 0.4em;
+    padding-bottom: 0.4em;
 }
 
 .defaultListItem ul li {

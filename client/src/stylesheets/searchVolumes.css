@@ -2,16 +2,34 @@
     position: relative;
 }
 
-.searchBox input {
-    width: 24em;
-    height: 1.5em;
-    weight: bold;
-    border: 1px solid;
-    font-size: 1em;
+@media only screen and (min-device-width: 768px) {
+    .searchBox input {
+        width: 24em;
+        height: 1.5em;
+        weight: bold;
+        border: 1px solid;
+        font-size: 1em;
+    }
+
+    .searchBox .icon {
+        position: absolute;
+        top: 6px;
+        left: 22.8em;
+    }
 }
 
-.searchBox .icon {
-    position: absolute;
-    top: 6px;
-    left: 22.8em;
+@media only screen and (max-device-width: 768px) {
+    .searchBox input {
+        width: 18em;
+        height: 1.5em;
+        weight: bold;
+        border: 1px solid;
+        font-size: 1em;
+    }
+
+    .searchBox .icon {
+        position: absolute;
+        top: 6px;
+        left: 16.8em;
+    }
 }

@@ -54,6 +54,14 @@
         width: 100%;
         overflow:auto;
     }
+
+    .content {
+        overflow:auto;
+        position: relative;
+        width: 80%;
+        padding: 2em;
+        margin: 1em;
+    }
 }
 
 @media only screen and (max-device-width: 768px) {
@@ -70,13 +78,13 @@
     .expandMainMenu {
         display: inline-block;
         float: left;
-        margin-left: 3em;
-        margin-top: 0.5em;
+        margin-left: 1em;
+        margin-top: 0.25em;
     }
 
     .expandMainMenu .icon {
-        width: 3em;
-        height: 3em;
+        width: 2em;
+        height: 2em;
     }
 
     .logo {
@@ -87,7 +95,7 @@
     .logo a {
         text-decoration: none;
         color: #000000;
-        font-size: 3em;
+        font-size: 2em;
         margin-left: 1.5em;
     }
 
@@ -95,10 +103,9 @@
         overflow-x: hidden;
         overflow-y: auto;
         position: relative;
-        left: 20px;
+        left: 0px;
         top: -10px;
         width: 100%;
-        font-size: 2em;
     }
 
     .mainMenu ul {
@@ -115,14 +122,14 @@
     .hideNav {
         display: none;
     }
-}
 
-.content {
-    overflow:auto;
-    position: relative;
-    width: 80%;
-    padding: 2em;
-    margin: 1em;
+    .content {
+        overflow:auto;
+        position: relative;
+        width: 100%;
+        padding: 0.5em;
+        margin: 0.5em;
+    }
 }
 
 button {
