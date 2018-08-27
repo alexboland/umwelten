@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const UglifyWebpackPlugin = require("uglifyjs-webpack-plugin");
 const config = {
   entry: './client/src/App.js',
   output: {
@@ -8,7 +9,10 @@ const config = {
   },
   watch: false,
   mode: 'production',
-  devtool: "#eval-source-map",
+  devtool: "source-map",
+  optimization: {
+    minimizer: [new UglifyWebpackPlugin({ sourceMap: true })],
+  },
   module: {
     rules: [
       {
