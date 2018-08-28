@@ -1,0 +1,21 @@
+.title {
+  font-size: 1.1em;
+}
+
+.subtitle {
+  font-size: 1em;
+}
+
+.author {
+  padding-top: 0.3em;
+  font-size: 1em;
+  padding-bottom: 0.1em;
+}
+
+.publisher {
+  font-size: 1em;
+}
+
+.lendStatus {
+    margin-top: 0.4em;
+}

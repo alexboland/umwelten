@@ -12,10 +12,13 @@ import Profile from './Profile.js';
 import BorrowedBooks from "./BorrowedBooks";
 import BookRequests from "./BookRequests";
 import libraryStyles from './stylesheets/userLibrary.css'
+import appStyle from './stylesheets/appStyle.css'
+import { FaCaretRight} from 'react-icons/fa';
+import { FaCaretDown } from 'react-icons/fa';
 
 class LibMenu extends React.Component {
   render() {
-    return <div className={`${libraryStyles.libraryMenu}`}>
+    return <div className={`${libraryStyles.libraryMenu} ${this.props.hideNav && appStyle.hideNav}`}>
       <UserContext>{currentUser => <ul>
           <li><Link to={'/users/' + this.props.user + '/bookshelf'}>Bookshelf</Link></li>
           <li><Link to={'/users/' + this.props.user + '/profile'}>Profile</Link></li>
@@ -28,7 +31,11 @@ class LibMenu extends React.Component {
 
 class UserLibrary extends React.Component {
 
-  state = { pendingRequests: [] };
+  state = { pendingRequests: [], expandNav: false };
+
+  toggleNav () {
+    this.setState({expandNav: !this.state.expandNav})
+  }
 
   retrievePendingRequests () {
     fetch('/bookRequests/list/', {credentials: 'same-origin'})
@@ -46,7 +53,12 @@ class UserLibrary extends React.Component {
 
   render() {
     return <div className={`${libraryStyles.libraryMain}`}>
-      <LibMenu user={this.props.match.params.user} numRequests={this.state.pendingRequests.length} />
+      <div className={libraryStyles.expandLibMenu} onClick={this.toggleNav.bind(this)}>
+        <h1>{ !this.state.expandNav && <FaCaretRight className={libraryStyles.icon} /> }
+        { this.state.expandNav && <FaCaretDown className={libraryStyles.icon} />}
+        Library</h1>
+      </div>
+      <LibMenu hideNav={!this.state.expandNav} user={this.props.match.params.user} numRequests={this.state.pendingRequests.length} />
       <div className={`${libraryStyles.libraryContent}`}>
         <UserContext>{currentUser =>
             <Router>
