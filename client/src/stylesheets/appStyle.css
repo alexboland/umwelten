@@ -1,6 +1,6 @@
 .appText {
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .mainMenu ul {
@@ -70,16 +70,15 @@
         padding-top: 1em;
         position: relative;
         width: 100%;
-        overflow-x: hidden;
-        overflow-y:auto;
+        overflow: hidden;
         z-index: 15;
     }
 
     .expandMainMenu {
         display: inline-block;
         float: left;
-        margin-left: 1em;
-        margin-top: 0.25em;
+        margin-left: 0.25em;
+        margin-top: 0.18em;
     }
 
     .expandMainMenu .icon {
@@ -100,11 +99,9 @@
     }
 
     .mainMenu {
-        overflow-x: hidden;
-        overflow-y: auto;
         position: relative;
         left: 0px;
-        top: -10px;
+        top: 0px;
         width: 100%;
     }
 
@@ -124,10 +121,9 @@
     }
 
     .content {
-        overflow:auto;
         position: relative;
         width: 100%;
-        padding: 0.5em;
+        padding-top: 0.5em;
         margin: 0.5em;
     }
 }
