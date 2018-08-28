@@ -1,6 +1,8 @@
 .defaultList {
     display: block;
-    margin-left: -2.2em;
+    margin-left: -4em;
+    font-size: 1em;
+    width: 100%;
 }
 
 .defaultList li {
@@ -20,10 +22,6 @@
 .nestedList button {
 }
 
-.bookLinks {
-  border-right: 0.05em solid #dddddd;
-}
-
 .bookLinks ul {
   display: inline;
 }
@@ -36,9 +34,9 @@
 }
 
 .defaultListItem {
-    border: 0.03em solid #dddddd;
-    margin-top: 0.3em;
-    padding: 0.3em;
+    border-bottom: 0.03em solid #dddddd;
+    margin-bottom: 0.6em;
+    padding-bottom: 0.8em;
 }
 
 .defaultListItem ul li {

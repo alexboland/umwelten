@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import UserContext from './UserContext.js'
 import listStyles from './stylesheets/listStyle.css'
+import bookshelfStyles from './stylesheets/bookshelfStyle.css'
 
 
 const listStyle = {
@@ -48,10 +49,10 @@ class BorrowedBooks extends React.Component {
             .map(book =>
               <li className={`${listStyles.defaultListItem}`}>
                 <ul>
-                  <li>{book.title}</li>
-                  <li>{book.subtitle}</li>
-                  <li>{book.author && book.author.replace(/\|/g, ', ')}</li>
-                  <li>{book.publisher}</li>
+                  <li  className={bookshelfStyles.title}>{book.title}</li>
+                  <li  className={bookshelfStyles.subtitle}>{book.subtitle}</li>
+                  <li  className={bookshelfStyles.author}>{book.author && book.author.replace(/\|/g, ', ')}</li>
+                  <li  className={bookshelfStyles.publisher}>{book.publisher}</li>
                   <li>Borrowed from <Link to={'/users/' + book.owner_uuid + '/bookshelf'}>{book.username}</Link></li>
                   <li><button onClick={() => {this.returnBook(book.book_uuid)}}>Return</button></li>
                 </ul>

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import listStyles from './stylesheets/listStyle.css'
 import libStyles from './stylesheets/userLibrary.css'
+import bookshelfStyles from './stylesheets/bookshelfStyle.css'
 
 class BookRequests extends React.Component {
 
@@ -39,10 +40,10 @@ class BookRequests extends React.Component {
           <li className={libStyles.requestHeader}>
             <Link to={'/users/' + request.requester_uuid + '/bookshelf'}>{request.username}</Link> wants to borrow:
           </li>
-          <li>{request.title}</li>
-          <li>{request.subtitle}</li>
-          <li>{request.author}</li>
-          <li>{request.publisher}</li>
+          <li className={bookshelfStyles.title}>{request.title}</li>
+          <li className={bookshelfStyles.subtitle}>{request.subtitle}</li>
+          <li className={bookshelfStyles.author}>{request.author}</li>
+          <li className={bookshelfStyles.publisher}>{request.publisher}</li>
           <li className={`${listStyles.nestedList}`}>
             <ul>
               <li><button onClick={ () => this.acceptRequest(request.requester_uuid, request.book_uuid, request.uuid) }>Accept</button></li>

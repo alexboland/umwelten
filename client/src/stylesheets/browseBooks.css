@@ -1,6 +1,6 @@
 .searchForm {
     display: block;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .searchForm div {

@@ -20,19 +20,27 @@ import BrowseUsers from './BrowseUsers.js'
 import appStyle from './stylesheets/appStyle.css'
 import About from './About.js'
 import UserSettings from './UserSettings.js'
+import { FaBars } from 'react-icons/fa';
 
-const linkStyle = {
-
-}
 
 class App extends React.Component {
   constructor(props){
     super();
     this.logout = this.logout.bind(this);
     this.loginHandler = this.loginHandler.bind(this);
+    this.closeNav = this.closeNav.bind(this);
+    this.toggleNav = this.toggleNav.bind(this);
   }
 
-  state = {user: null};
+  state = {user: null, expandNav: false};
+
+  closeNav() {
+    this.setState({ expandNav: false })
+  }
+
+  toggleNav() {
+    this.setState({ expandNav: !this.state.expandNav })
+  }
 
   loginHandler(user) {
     this.setState({user: user});
@@ -55,21 +63,24 @@ class App extends React.Component {
   render() {
     return <div className={`${appStyle.appText}`}>
       <div className={`${appStyle.header}`}>
+        <div className={appStyle.expandMainMenu}>
+          <FaBars className={appStyle.icon} onClick={this.toggleNav} />
+        </div>
         <div className={`${appStyle.logo}`}><Link to='/'>Umwelten</Link></div>
-        <div className={`${appStyle.mainMenu}`}>
+        <div className={`${appStyle.mainMenu} ${!this.state.expandNav && appStyle.hideNav}`}>
           <ul>
-            { !this.state.user && <li><Link to='/login'>Login</Link></li> }
-            { this.state.user && <li><Link to={'/users/' + this.state.user.uuid + '/bookshelf'}>My Library</Link></li> }
-            <li><Link to='/browseBooks'>Browse Books</Link></li>
-            { this.state.user && <li><Link to='/searchVolumes'>Add Books</Link></li> }
-            { this.state.user && <li><Link to='/searchUsers'>Search Users</Link></li> }
-            { this.state.user && <li><Link to='/settings'>Settings</Link></li> }
-            { this.state.user && <li><Link to='/logout' onClick={this.logout}>Logout</Link></li> }
+            { !this.state.user && <li><Link to='/login' onClick={this.closeNav}>Login</Link></li> }
+            { this.state.user && <li><Link to={'/users/' + this.state.user.uuid + '/bookshelf'} onClick={this.closeNav}>My Library</Link></li> }
+            <li><Link to='/browseBooks' onClick={this.closeNav}>Browse Books</Link></li>
+            { this.state.user && <li><Link to='/searchVolumes' onClick={this.closeNav}>Add Books</Link></li> }
+            { this.state.user && <li><Link to='/searchUsers' onClick={this.closeNav}>Search Users</Link></li> }
+            { this.state.user && <li><Link to='/settings' onClick={this.closeNav}>Settings</Link></li> }
+            { this.state.user && <li><Link to='/logout' onClick={() => {this.closeNav(); this.logout();} }>Logout</Link></li> }
           </ul>
         </div>
       </div>
       <UserContext.Provider value={this.state.user && this.state.user.uuid}>
-         <div className={`${appStyle.content}`}>
+         <div className={`${appStyle.content}`} onClick={this.closeNav}>
           <Switch>
             <Route exact path='/' component={About} />
             <Route path='/signUp/' render={() => {return <SignUp handler={this.loginHandler} />; } } />

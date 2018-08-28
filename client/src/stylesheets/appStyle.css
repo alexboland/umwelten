@@ -1,12 +1,6 @@
 .appText {
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    overflow: auto;
-}
-
-.mainMenu {
-    overflow: auto;
-    display: inline-block;
-    float: left;
+    overflow: hidden;
 }
 
 .mainMenu ul {
@@ -18,7 +12,6 @@
   display: inline-block;
   padding: 0.8em;
   font-size: 1.2em;
-
 }
 
 .mainMenu a {
@@ -27,35 +20,112 @@
   cursor: pointer;
 }
 
-.header {
-    position: relative;
-    top: 1em;
-    right: 1em;
-    width: 100%;
-    overflow:auto;
+@media only screen and (min-device-width: 768px) {
+
+    .mainMenu {
+        overflow: auto;
+        display: inline-block;
+        float: left;
+    }
+
+    .logo {
+        width: 20%;
+        display: inline-block;
+        margin-left: 0.2em;
+        padding-top: 1em;
+        float: left;
+    }
+
+    .logo a {
+        text-decoration: none;
+        color: #000000;
+        font-size: 2em;
+        margin-left: 1.5em;
+    }
+
+    .expandMainMenu {
+        display: none;
+    }
+
+    .header {
+        position: relative;
+        top: 1em;
+        right: 1em;
+        width: 100%;
+        overflow:auto;
+    }
+
+    .content {
+        overflow:auto;
+        position: relative;
+        width: 80%;
+        padding: 2em;
+        margin: 1em;
+    }
 }
 
-.content {
-    overflow:auto;
-    position: relative;
-    width: 80%;
-    padding: 2em;
-    margin: 1em;
-}
+@media only screen and (max-device-width: 768px) {
 
-.logo {
-    width: 20%;
-    display: inline-block;
-    margin-left: 0.2em;
-    padding-top: 1em;
-    float: left;
-}
+    .header {
+        padding-top: 1em;
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        z-index: 15;
+    }
 
-.logo a {
-    text-decoration: none;
-    color: #000000;
-    font-size: 2em;
-    margin-left: 1.5em;
+    .expandMainMenu {
+        display: inline-block;
+        float: left;
+        margin-left: 0.25em;
+        margin-top: 0.18em;
+    }
+
+    .expandMainMenu .icon {
+        width: 2em;
+        height: 2em;
+    }
+
+    .logo {
+        display: inline-block;
+        float: left;
+    }
+
+    .logo a {
+        text-decoration: none;
+        color: #000000;
+        font-size: 2em;
+        margin-left: 1.5em;
+    }
+
+    .mainMenu {
+        position: relative;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+    }
+
+    .mainMenu ul {
+        width: 100%;
+    }
+
+    .mainMenu ul li {
+        width: 100%;
+        background: #ffffff;
+        display: block;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .hideNav {
+        display: none;
+    }
+
+    .content {
+        position: relative;
+        width: 100%;
+        padding-top: 0.5em;
+        margin: 0.5em;
+    }
 }
 
 button {

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import UserContext from './UserContext.js'
 import listStyles from './stylesheets/listStyle.css'
 import PaginationFooter from './PaginationFooter.js'
+import bookshelfStyles from './stylesheets/bookshelfStyle.css'
 
 class BookItem extends React.Component {
 
@@ -26,19 +27,19 @@ class BookItem extends React.Component {
 
   render() {
     return <ul>
-      <li>{this.props.title}</li>
-      <li>{this.props.subtitle}</li>
-      <li>{this.props.author}</li>
-      <li>{this.props.publisher}</li>
-      { this.props.user == this.props.currentAppUser && this.props.currentBookUser == this.props.user &&
-        <li><button onClick={this.props.removeFromShelf}>Remove from bookshelf</button></li> }
-      { this.props.user && this.props.user !== this.props.currentAppUser && !this.state.requested &&
-        this.props.currentBookUser == this.props.user && <li><button onClick={this.handleClick}>Request to borrow</button></li> }
-      { this.state.requested && <li>Requested</li> }
-      { this.props.currentBookUser != this.props.user && <li>
-        Currently lent to <Link to={'/users/' + this.props.currentBookUser+ '/bookshelf'}>{this.props.currentBookUserName}</Link>
-      </li> }
+      <li className={bookshelfStyles.title}>{this.props.title}</li>
+      <li className={bookshelfStyles.subtitle}>{this.props.subtitle}</li>
+      <li className={bookshelfStyles.author}>{this.props.author}</li>
+      <li className={bookshelfStyles.publisher}>{this.props.publisher}</li>
       <li><Link to={'/volumes/' + this.props.volume_uuid}>Go to volume page</Link></li>
+      <li className={bookshelfStyles.lendStatus}>
+        { this.props.user == this.props.currentAppUser && this.props.currentBookUser == this.props.user &&
+          <button onClick={this.props.removeFromShelf}>Remove from bookshelf</button> }
+        { this.props.user && this.props.user !== this.props.currentAppUser && !this.state.requested &&
+          this.props.currentBookUser == this.props.user && <button onClick={this.handleClick}>Request to borrow</button> }
+        { this.state.requested && <span>Requested</span> }
+        { this.props.currentBookUser != this.props.user && <span>Currently lent to <Link to={'/users/' + this.props.currentBookUser+ '/bookshelf'}>{this.props.currentBookUserName}</Link></span> }
+      </li>
     </ul>
   }
 }
