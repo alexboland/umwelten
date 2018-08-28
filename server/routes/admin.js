@@ -22,7 +22,7 @@ router.post('/createActivationCodes', function(req, res) {
 
 router.post('/resetPassword', function(req, res) {
   if (req.body.adminPass == process.env.ADMIN_PASSWORD) {
-    bcrypt.genSalt(SALT_WORK_FACTOR)
+    bcrypt.genSalt(10)
       .then(salt => {
         return Promise.all([bcrypt.hash(req.body.password, salt), salt])
       })
