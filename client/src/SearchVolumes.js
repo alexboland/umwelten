@@ -4,6 +4,7 @@ import listStyles from './stylesheets/listStyle.css'
 import modalStyles from './stylesheets/modalStyle.css'
 import { FaSearch } from 'react-icons/fa';
 import searchStyles from './stylesheets/searchVolumes.css'
+import bookshelfStyles from './stylesheets/bookshelfStyle.css'
 
 Modal.setAppElement('#root')
 
@@ -71,10 +72,10 @@ class SearchVolumes extends React.Component {
       <ul className={`${listStyles.defaultList}`}>
         { this.state.searchResults.map(volumeItem => <li className={`${listStyles.defaultListItem}`} key={volumeItem.id}>
           <ul>
-            <li>{volumeItem.title}</li>
-            <li>{volumeItem.subtitle}</li>
-            <li>{volumeItem.authors.join(', ')}</li>
-            <li>{volumeItem.publisher}</li>
+            <li className={bookshelfStyles.title}>{volumeItem.title}</li>
+            <li className={bookshelfStyles.subtitle}>{volumeItem.subtitle}</li>
+            <li className={bookshelfStyles.author}>{volumeItem.authors.join(', ')}</li>
+            <li className={bookshelfStyles.publisher}>{volumeItem.publisher}</li>
             <li><button onClick={() => this.addToBookshelf(volumeItem)}>Add To Bookshelf</button></li>
           </ul>
         </li>) }

@@ -9,15 +9,12 @@
 
 .author {
   margin-top: 0.6em;
-  font-size: 1em;
+  font-size: 1.05em;
 
 }
 
 .publisher {
   font-size: 1em;
   color: #222222;
-}
-
-.lendStatus {
-    margin-top: 0.6em;
+  margin-bottom: 0.6em;
 }

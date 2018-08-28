@@ -2,9 +2,8 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import PaginationFooter from './PaginationFooter.js'
 import listStyles from './stylesheets/listStyle.css'
-import appStyles from './stylesheets/appStyle.css'
 import browseBooksStyles from './stylesheets/browseBooks.css'
-
+import bookshelfStyles from './stylesheets/bookshelfStyle.css'
 
 class BrowseBooks extends React.Component {
 
@@ -61,10 +60,10 @@ class BrowseBooks extends React.Component {
       <ul className={`${listStyles.defaultList}`}>
         {this.state.books.map(book => <li className={`${listStyles.defaultListItem}`}>
           <ul>
-            <li>{book.title}</li>
-            <li>{book.subtitle}</li>
-            <li>{book.author && book.author.replace(/\|/g, ', ')}</li>
-            <li>{book.publisher}</li>
+            <li className={bookshelfStyles.title}>{book.title}</li>
+            <li className={bookshelfStyles.subtitle}>{book.subtitle}</li>
+            <li className={bookshelfStyles.author}>{book.author && book.author.replace(/\|/g, ', ')}</li>
+            <li className={bookshelfStyles.publisher}>{book.publisher}</li>
             <li className={`${listStyles.bookLinks} ${listStyles.nestedList}`}>
               <ul><li>Owned by:</li>
                 {book.bookLinks.map(link => {
