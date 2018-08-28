@@ -31,6 +31,7 @@ class BookItem extends React.Component {
       <li className={bookshelfStyles.subtitle}>{this.props.subtitle}</li>
       <li className={bookshelfStyles.author}>{this.props.author}</li>
       <li className={bookshelfStyles.publisher}>{this.props.publisher}</li>
+      <li><Link to={'/volumes/' + this.props.volume_uuid}>Go to volume page</Link></li>
       <li className={bookshelfStyles.lendStatus}>
         { this.props.user == this.props.currentAppUser && this.props.currentBookUser == this.props.user &&
           <button onClick={this.props.removeFromShelf}>Remove from bookshelf</button> }
@@ -39,7 +40,6 @@ class BookItem extends React.Component {
         { this.state.requested && <span>Requested</span> }
         { this.props.currentBookUser != this.props.user && <span>Currently lent to <Link to={'/users/' + this.props.currentBookUser+ '/bookshelf'}>{this.props.currentBookUserName}</Link></span> }
       </li>
-      <li><Link to={'/volumes/' + this.props.volume_uuid}>Go to volume page</Link></li>
     </ul>
   }
 }

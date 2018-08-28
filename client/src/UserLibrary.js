@@ -31,20 +31,25 @@ class LibMenu extends React.Component {
 
 class UserLibrary extends React.Component {
 
-  state = { pendingRequests: [], expandNav: false };
+  state = { pendingRequests: [], username: '', expandNav: false };
 
   toggleNav () {
     this.setState({expandNav: !this.state.expandNav})
   }
 
   retrievePendingRequests () {
-    fetch('/bookRequests/list/', {credentials: 'same-origin'})
+    return fetch('/bookRequests/list/', {credentials: 'same-origin'})
       .then(results => results.json())
-      .then(results => {this.setState({pendingRequests: results.requests}); } )
   }
 
   componentDidMount () {
-    this.retrievePendingRequests();
+    let self = this;
+    let userReq = fetch('/users/profile/' + this.props.match.params.user, {credentials: 'same-origin'}).then(data => data.json());
+
+    Promise.all([this.retrievePendingRequests(), userReq])
+      .then(([reqs, user]) => {
+        self.setState({pendingRequests: reqs.requests, username: user.user.username})
+      });
   }
 
   handleRequestAction(requestUuid) {
@@ -56,7 +61,7 @@ class UserLibrary extends React.Component {
       <div className={libraryStyles.expandLibMenu} onClick={this.toggleNav.bind(this)}>
         <h1>{ !this.state.expandNav && <FaCaretRight className={libraryStyles.icon} /> }
         { this.state.expandNav && <FaCaretDown className={libraryStyles.icon} />}
-        Library</h1>
+        { this.state.username + "'s "} Library</h1>
       </div>
       <LibMenu hideNav={!this.state.expandNav} user={this.props.match.params.user} numRequests={this.state.pendingRequests.length} />
       <div className={`${libraryStyles.libraryContent}`}>
