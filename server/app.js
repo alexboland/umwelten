@@ -29,6 +29,7 @@ var volumesRouter = require('./routes/volumes');
 var booksRouter = require('./routes/books');
 var bookRequestsRouter = require('./routes/bookRequests');
 var discussionsRouter = require('./routes/discussions');
+var adminRouter = require('./routes/admin');
 
 app.use('/', indexRouter);
 
@@ -39,6 +40,7 @@ app.use('/volumes', volumesRouter);
 app.use('/books', booksRouter);
 app.use('/bookRequests', bookRequestsRouter);
 app.use('/discussions', discussionsRouter);
+app.use('/admin', adminRouter);
 
 module.exports = app;
 
