@@ -1,0 +1,36 @@
+.filterBox {
+    float: none;
+    overflow-y: auto;
+    width: 90%;
+    margin-left: -1em;
+    margin-bottom: 2em;
+}
+
+.criteria {
+    float: none;
+    margin-left: -0.4em;
+    overflow-y: auto;
+}
+
+.criteria ul {
+    display: inline-block;
+    list-style: none;
+    padding-left: 1em;
+    margin-top: 0;
+}
+
+.criteria ul li {
+    display: inline-block;
+    padding-right: 1em;
+}
+
+.query {
+    overflow-y: auto;
+    padding-left: 1em;
+}
+
+.query input {
+    width: 90%;
+    height: 1.6em;
+    font-size: 0.9em;
+}
