@@ -1,12 +1,16 @@
 .filterBox {
     float: none;
     overflow-y: auto;
-    width: 90%;
-    margin-left: -1em;
-    margin-bottom: 2em;
+    width: 100%;
+    padding-top: 0.6em;
+    padding-bottom: 1.5em;
+    margin-bottom: 0.5em;
+    border-bottom: 0.03em solid #dddddd;
+    background-color: #fafafa;
 }
 
 .criteria {
+    margin-left: -1em;
     float: none;
     overflow-y: auto;
 }
@@ -24,6 +28,7 @@
 }
 
 .query {
+    margin-left: -1em;
     overflow-y: auto;
     padding-left: 1.4em;
 }
