@@ -62,8 +62,9 @@ router.get('/list', function(req, res) {
     knex.raw("GROUP_CONCAT(CONCAT_WS(',', username, owner_uuid) SEPARATOR '|') AS book_links"))
     .from('volumes')
 
-  if (req.query.bookTitle) {
-    getBooks = getBooks.whereRaw("volumes.title LIKE '%" + req.query.bookTitle + "%'")
+  if (req.query.title) {
+    getBooks = getBooks.whereRaw("volumes.title LIKE '%" + req.query.title +
+      "%' OR volumes.subtitle LIKE '%" + req.query.title + "%'")
   }
 
   if (req.query.author) {

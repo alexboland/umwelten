@@ -4,21 +4,41 @@ import PaginationFooter from './PaginationFooter.js'
 import listStyles from './stylesheets/listStyle.css'
 import browseBooksStyles from './stylesheets/browseBooks.css'
 import bookshelfStyles from './stylesheets/bookshelfStyle.css'
+import FilterForm from './FilterForm.js'
 
 class BrowseBooks extends React.Component {
 
-  state = { books: [], total: 0, perPage: 20, page: 0, searchTitle: '', searchAuthor: '' };
+  state = { books: [], total: 0, perPage: 20, page: 0 };
 
-  fetchBooks (page) {
+  handleFilterChange(criterion, query) {
+    let self = this;
+    let timeout = () => new Promise(resolve => {
+      let queryNo = Math.random().toString(36).substring(2, 15);
+      self.currentQuery = queryNo;
+      setTimeout(() => {
+        resolve(queryNo);
+      }, 150)
+    });
+
+    timeout()
+      .then(queryNo => {
+        if (queryNo != self.currentQuery) { throw('canceling') }
+        return this.fetchBooks(this.state.page, {[criterion]: query});
+      })
+      .then(results => {
+        this.setState(results);
+      })
+      .catch(err => {
+      });
+  }
+
+  fetchBooks (page, options = {}) {
     let query = '/books/list?page=' + page +
       '&perPage=' + this.state.perPage;
 
-    if (this.state.searchTitle) {
-      query += '&bookTitle=' + this.state.searchTitle;
-    }
-    if (this.state.searchAuthor) {
-      query += '&author=' + this.state.searchAuthor;
-    }
+    Object.keys(options).forEach(key => {
+      query += '&' + key + '=' + options[key];
+    });
 
     return fetch(query, {credentials: 'same-origin'})
       .then(results => results.json())
@@ -29,10 +49,6 @@ class BrowseBooks extends React.Component {
         })
         return {books: books, total: results.total, page: results.page}
       });
-  }
-
-  setSearch(evt, criteria) {
-    this.setState({[criteria]: evt.target.value });
   }
 
   componentDidMount () {
@@ -51,11 +67,7 @@ class BrowseBooks extends React.Component {
 
   render () { return <div>
     <h1>Books</h1>
-    <div className={browseBooksStyles.searchForm}>
-      <div>Title <input type='text' onKeyPress={this.keyPressed.bind(this)} onChange={(evt) => this.setSearch(evt, 'searchTitle')} /></div>
-      <div>Author <input type='text' onKeyPress={this.keyPressed.bind(this)} onChange={(evt) => this.setSearch(evt, 'searchAuthor')} /></div>
-      <div><button onClick={() => this.fetchBooks(this.state.page).then(results => this.setState(results))}>Search</button></div>
-    </div>
+    <FilterForm criteria={{title: 'Title/Subtitle', author: 'Author'}} changeHandler={this.handleFilterChange.bind(this)} />
     <div className={browseBooksStyles.searchResults}>
       <ul className={`${listStyles.defaultList}`}>
         {this.state.books.map(book => <li className={`${listStyles.defaultListItem}`}>

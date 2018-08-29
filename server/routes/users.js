@@ -115,8 +115,9 @@ router.get('/books/:user', function(req, res) {
     .where({owner_uuid: req.params.user});
 
   if (req.query.title) {
-    getBooks = getBooks.whereRaw("title LIKE '%" + req.query.title + "%'");
-    getTotal = getTotal.whereRaw("title LIKE '%" + req.query.title + "%'");
+    let titleQuery = "title LIKE '%" + req.query.title + "%' OR subtitle LIKE '%" + req.query.title + "%'";
+    getBooks = getBooks.whereRaw(titleQuery);
+    getTotal = getTotal.whereRaw(titleQuery);
   } else if (req.query.author) {
     getBooks = getBooks.whereRaw("author LIKE '%" + req.query.author + "%'");
     getTotal = getTotal.whereRaw("author LIKE '%" + req.query.author + "%'");
