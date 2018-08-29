@@ -108,12 +108,28 @@ router.get('/books/:user', function(req, res) {
   let orderBy = req.query.orderBy || 'volumes.title';
   let direction = req.query.direction || 'ASC';
 
-  let getBooks = bookLib.getBooksForUser(req.params.user, req.session.user.uuid)
+  let getBooks = bookLib.getBooksForUser(req.params.user, req.session.user.uuid);
+
+  let getTotal = knex('books')
+    .innerJoin('volumes', 'volumes.uuid', '=', 'books.volume_uuid')
+    .where({owner_uuid: req.params.user});
+
+  if (req.query.title) {
+    getBooks = getBooks.whereRaw("title LIKE '%" + req.query.title + "%'");
+    getTotal = getTotal.whereRaw("title LIKE '%" + req.query.title + "%'");
+  } else if (req.query.author) {
+    getBooks = getBooks.whereRaw("author LIKE '%" + req.query.author + "%'");
+    getTotal = getTotal.whereRaw("author LIKE '%" + req.query.author + "%'");
+
+  }
+
+  getBooks = getBooks
     .limit(limit)
     .offset(page*limit)
     .orderBy(orderBy, direction);
 
-  let getTotal = knex('books').where({owner_uuid: req.params.user}).count('*');
+  getTotal = getTotal.count('*');
+
 
   Promise.all([getBooks, getTotal])
     .then(([books, total]) => {

@@ -4,6 +4,7 @@ import UserContext from './UserContext.js'
 import listStyles from './stylesheets/listStyle.css'
 import PaginationFooter from './PaginationFooter.js'
 import bookshelfStyles from './stylesheets/bookshelfStyle.css'
+import FilterForm from './FilterForm.js'
 
 class BookItem extends React.Component {
 
@@ -48,9 +49,36 @@ class Bookshelf extends React.Component {
 
   state = {books: [], username: '', page: 0, perPage: 20, total: 0}
 
-  booksRequest(page) {
+  currentQuery = null;
+
+  handleFilterChange(criterion, query) {
+    let self = this;
+    let timeout = () => new Promise(resolve => {
+      let queryNo = Math.random().toString(36).substring(2, 15);
+      self.currentQuery = queryNo;
+      setTimeout(() => {
+        resolve(queryNo);
+      }, 150)
+    });
+
+    timeout()
+      .then(queryNo => {
+        if (queryNo != self.currentQuery) { throw('canceling') }
+        return this.booksRequest(this.state.page, {[criterion]: query});
+      })
+      .then(results => {
+        this.setState({books: results.books, page: results.page, total: results.total})
+      })
+      .catch(err => {
+      });
+  }
+
+  booksRequest(page, options = {}) {
     let query = '/users/books/' + this.props.user + '?page=' + page +
       '&perPage=' + this.state.perPage;
+    Object.keys(options).forEach(key => {
+      query += '&' + key + '=' + options[key];
+    });
     return fetch(query, {credentials: 'same-origin'})
       .then(data => data.json());
   }
@@ -98,11 +126,12 @@ class Bookshelf extends React.Component {
   render() {
     return <div>
       <h1>{ this.state.username }'s Books:</h1>
+      <FilterForm criteria={{title: 'Title/Subtitle', author: 'Author'}} changeHandler={this.handleFilterChange.bind(this)} />
       <ul className={`${listStyles.defaultList}`}>
         <UserContext.Consumer>
           { currentUser => this.state.books
             .map(book =>
-              <li className={`${listStyles.defaultListItem}`}>
+              <li className={`${listStyles.defaultListItem}`} key={book.book_uuid}>
                 <BookItem title={book.title} subtitle={book.subtitle} author={book.author && book.author.replace(/\|/g, ', ')}
                   publisher={book.publisher} book_uuid={book.book_uuid} user={this.props.user} volume_uuid={book.volume_uuid}
                   currentBookUser={book.current_user_uuid} currentBookUserName={book.borrower} requested={book.request_uuid}
