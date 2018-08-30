@@ -86,6 +86,7 @@ class BrowseBooks extends React.Component {
             <li><Link to={'/volumes/' + book.volume_uuid}>Go to volume page</Link></li>
           </ul>
         </li>)}
+        {this.state.total == 0 && <li>No results found.</li>}
       </ul>
     </div>
     <PaginationFooter clickPage={this.clickPage.bind(this)} total={this.state.total} page={this.state.page} perPage={this.state.perPage} />

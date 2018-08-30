@@ -47,7 +47,7 @@ class BookItem extends React.Component {
 
 class Bookshelf extends React.Component {
 
-  state = {books: [], username: '', page: 0, perPage: 20, total: 0}
+  state = {books: [], username: '', page: 0, perPage: 20, total: 0, hasBooks: null};
 
   currentQuery = null;
 
@@ -88,9 +88,13 @@ class Bookshelf extends React.Component {
     let userReq = fetch('/users/profile/' + this.props.user, {credentials: 'same-origin'})
       .then(data => data.json());
 
-    Promise.all([this.booksRequest(0), userReq])
-      .then(([books, user]) => {
-        this.setState({books: books.books, username: user.user.username, page: books.page, total: books.total});
+    let allBooksReq = fetch('/users/totalBooks/' + this.props.user, {credentials: 'same-origin'})
+      .then(data => data.json());
+
+    Promise.all([this.booksRequest(0), userReq, allBooksReq])
+      .then(([books, user, allBooks]) => {
+        this.setState({books: books.books, username: user.user.username, page: books.page,
+          total: books.total, hasBooks: allBooks.total > 0});
       });
   }
 
@@ -126,17 +130,22 @@ class Bookshelf extends React.Component {
   render() {
     return <div>
       <h1>{ this.state.username }'s Books:</h1>
-      <FilterForm criteria={{title: 'Title/Subtitle', author: 'Author'}} changeHandler={this.handleFilterChange.bind(this)} />
+      {this.state.hasBooks && <FilterForm criteria={{title: 'Title/Subtitle', author: 'Author'}} changeHandler={this.handleFilterChange.bind(this)} />}
       <ul className={`${listStyles.defaultList}`}>
         <UserContext.Consumer>
-          { currentUser => this.state.books
+          { currentUser => [this.state.books
             .map(book =>
               <li className={`${listStyles.defaultListItem}`} key={book.book_uuid}>
                 <BookItem title={book.title} subtitle={book.subtitle} author={book.author && book.author.replace(/\|/g, ', ')}
                   publisher={book.publisher} book_uuid={book.book_uuid} user={this.props.user} volume_uuid={book.volume_uuid}
                   currentBookUser={book.current_user_uuid} currentBookUserName={book.borrower} requested={book.request_uuid}
                   currentAppUser={currentUser} removeFromShelf={() => { this.removeFromShelf(book.book_uuid) } }  />
-              </li>) }
+              </li>),
+          this.state.hasBooks == false && currentUser == this.props.user &&
+            <li className={listStyles.noResults}>You haven't yet added any books to your library.  Feel free to <Link to={'/searchVolumes'}>add some</Link></li>,
+          this.state.hasBooks == false && currentUser != this.props.user &&
+            <li className={listStyles.noResults}>This user hasn't listed any books yet.</li>]
+          }
         </UserContext.Consumer>
       </ul>
       <PaginationFooter clickPage={this.clickPage.bind(this)} total={this.state.total} page={this.state.page} perPage={this.state.perPage} />

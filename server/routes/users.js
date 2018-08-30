@@ -141,6 +141,13 @@ router.get('/books/:user', function(req, res) {
     })
 });
 
+router.get('/totalBooks/:user', function(req, res) {
+  knex('books').where('owner_uuid', '=', req.params.user).count('*')
+    .then(result => {
+      res.send({total: result[0]['count(*)']})
+    })
+});
+
 router.get('/list', function(req, res) {
   let limit = req.query.perPage || 20;
   let page = req.query.page || 0;
@@ -169,6 +176,6 @@ router.get('/list', function(req, res) {
       console.log(err);
       res.send({error: err})
     });
-})
+});
 
 module.exports = router;
