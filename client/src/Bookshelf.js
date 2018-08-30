@@ -141,10 +141,11 @@ class Bookshelf extends React.Component {
                   currentBookUser={book.current_user_uuid} currentBookUserName={book.borrower} requested={book.request_uuid}
                   currentAppUser={currentUser} removeFromShelf={() => { this.removeFromShelf(book.book_uuid) } }  />
               </li>),
-          this.state.hasBooks == false && currentUser == this.props.user &&
-            <li className={listStyles.noResults}>You haven't yet added any books to your library.  Feel free to <Link to={'/searchVolumes'}>add some</Link></li>,
-          this.state.hasBooks == false && currentUser != this.props.user &&
-            <li className={listStyles.noResults}>This user hasn't listed any books yet.</li>]
+            this.state.hasBooks == false && currentUser == this.props.user &&
+              <li className={listStyles.noResults}>You haven't yet added any books to your library.  Feel free to <Link to={'/searchVolumes'}>add some</Link></li>,
+            this.state.hasBooks == false && currentUser != this.props.user &&
+              <li className={listStyles.noResults}>This user hasn't listed any books yet.</li>,
+            this.state.hasBooks && this.state.total == 0 && <li className={listStyles.noResults}>No results found.</li>]
           }
         </UserContext.Consumer>
       </ul>
