@@ -23,7 +23,7 @@ class BrowseBooks extends React.Component {
     timeout()
       .then(queryNo => {
         if (queryNo != self.currentQuery) { throw('canceling') }
-        return this.fetchBooks(this.state.page, {[criterion]: query});
+        return this.fetchBooks(0, {[criterion]: query});
       })
       .then(results => {
         this.setState(results);

@@ -64,7 +64,7 @@ class Bookshelf extends React.Component {
     timeout()
       .then(queryNo => {
         if (queryNo != self.currentQuery) { throw('canceling') }
-        return this.booksRequest(this.state.page, {[criterion]: query});
+        return this.booksRequest(0, {[criterion]: query});
       })
       .then(results => {
         this.setState({books: results.books, page: results.page, total: results.total})

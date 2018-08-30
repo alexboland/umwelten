@@ -62,13 +62,17 @@ router.get('/list', function(req, res) {
     knex.raw("GROUP_CONCAT(CONCAT_WS(',', username, owner_uuid) SEPARATOR '|') AS book_links"))
     .from('volumes')
 
-  if (req.query.title) {
-    getBooks = getBooks.whereRaw("volumes.title LIKE '%" + req.query.title +
-      "%' OR volumes.subtitle LIKE '%" + req.query.title + "%'")
-  }
+  let getTotal = knex('volumes');
 
-  if (req.query.author) {
-    getBooks = getBooks.whereRaw("volumes.author LIKE '%" + req.query.author + "%'")
+  if (req.query.title) {
+    let titleSearch = "volumes.title LIKE '%" + req.query.title +
+      "%' OR volumes.subtitle LIKE '%" + req.query.title + "%'";
+    getBooks = getBooks.whereRaw(titleSearch);
+    getTotal = getTotal.whereRaw(titleSearch);
+  } else if (req.query.author) {
+    let authorSearch = "volumes.author LIKE '%" + req.query.author + "%'";
+    getBooks = getBooks.whereRaw(authorSearch);
+    getTotal = getTotal.whereRaw(authorSearch);
   }
 
   getBooks = getBooks
@@ -79,9 +83,9 @@ router.get('/list', function(req, res) {
     .orderBy(orderBy, direction)
     .groupBy('volumes.uuid');
 
+  getTotal = getTotal.count('*');
 
 
-  let getTotal = knex('volumes').count('*');
 
   Promise.all([getBooks, getTotal]).then(([books, total]) => {
     res.send({books: books, total: total[0]['count(*)'], page: page});
