@@ -20,6 +20,7 @@ import BrowseUsers from './BrowseUsers.js'
 import appStyle from './stylesheets/appStyle.css'
 import About from './About.js'
 import UserSettings from './UserSettings.js'
+import Unauthorized from './Unauthorized.js'
 import { FaBars } from 'react-icons/fa';
 
 
@@ -70,6 +71,7 @@ class App extends React.Component {
         <div className={`${appStyle.mainMenu} ${!this.state.expandNav && appStyle.hideNav}`}>
           <ul>
             { !this.state.user && <li><Link to='/login' onClick={this.closeNav}>Login</Link></li> }
+            { !this.state.user && <li><Link to='/signup' onClick={this.closeNav}>Sign Up</Link></li> }
             { this.state.user && <li><Link to={'/users/' + this.state.user.uuid + '/bookshelf'} onClick={this.closeNav}>My Library</Link></li> }
             <li><Link to='/browseBooks' onClick={this.closeNav}>Browse Books</Link></li>
             { this.state.user && <li><Link to='/searchVolumes' onClick={this.closeNav}>Add Books</Link></li> }
@@ -86,6 +88,7 @@ class App extends React.Component {
             <Route path='/signUp/' render={() => {return <SignUp handler={this.loginHandler} />; } } />
             <Route path='/login/' render={() => {return <Login handler={this.loginHandler} />; } } />
             { this.state.user && <Route path={'/users/:user'} component={UserLibrary} />}
+            { !this.state.user && <Route path={'/users/:user'} component={Unauthorized} />}
             <Route path='/searchVolumes' component={SearchVolumes} />
             <Route path='/browseBooks' component={BrowseBooks} />
             <Route path={'/volumes/:volume'} component={VolumePage} />
