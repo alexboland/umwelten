@@ -18,14 +18,14 @@ import { FaCaretDown } from 'react-icons/fa';
 
 class LibMenu extends React.Component {
   render() {
-    return <div className={`${libraryStyles.libraryMenu} ${this.props.hideNav && appStyle.hideNav}`}>
+    return <nav className={`${libraryStyles.libraryMenu} ${this.props.hideNav && appStyle.hideNav}`}>
       <UserContext>{currentUser => <ul>
           <li><Link to={'/users/' + this.props.user + '/bookshelf'}>Bookshelf</Link></li>
           <li><Link to={'/users/' + this.props.user + '/profile'}>Profile</Link></li>
           {this.props.user == currentUser && <li><Link to={'/users/' + this.props.user + '/borrowedBooks'}>Books I'm Borrowing</Link></li>}
           {this.props.user == currentUser && <li><Link to={'/users/' + this.props.user + '/bookRequests'}>{'Pending Requests (' + this.props.numRequests + ')'}</Link></li>}
       </ul> }</UserContext>
-    </div>
+    </nav>
   }
 }
 

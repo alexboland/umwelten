@@ -1,16 +1,32 @@
 import React from "react";
 import paginationStyles from './stylesheets/pagination.css'
+import { FaForward, FaBackward, FaFastForward, FaFastBackward  } from 'react-icons/fa'
 
 class PaginationFooter extends React.Component {
 
-  render () { return <div className={this.props.total == 0 && paginationStyles.hidden}>
-      {'Page ' + (parseInt(this.props.page) + 1) + ' of ' + Math.ceil(this.props.total/this.props.perPage)}
-      <div className={paginationStyles.pagination}>
+  render () { return <nav className={`${this.props.total == 0 && paginationStyles.hidden} ${paginationStyles.pagination}`}>
+      <ul>
         { this.props.total > this.props.perPage &&
-        [...Array(Math.ceil(this.props.total/this.props.perPage)).keys()]
-          .map(page => { return <a onClick={() => { this.props.clickPage(page) }}>{page + 1}</a> }) }
-      </div>
-    </div>
+          [ <li><a onClick={() => { this.props.clickPage(0); window.scroll(0, 0); }}>
+              <FaFastBackward className={paginationStyles.icon} /></a>
+            </li>,
+            <li><a onClick={() => { this.props.clickPage(Math.max(this.props.page-1, 0)); window.scroll(0, 0); }}>
+              <FaBackward className={paginationStyles.icon}  /></a>
+            </li>,
+            [...Array(Math.min(Math.ceil(this.props.total/this.props.perPage), 5)).keys()]
+              .map(index => {
+                let start = Math.min(Math.max(0, this.props.page - 2), Math.floor(this.props.total/this.props.perPage) - 4);
+                let page = start + index;
+                return <li className={this.props.page == page && paginationStyles.activeLink}>
+                  <a onClick={() => { this.props.clickPage(page); window.scroll(0, 0); }}>{page + 1}</a>
+                </li>
+              }),
+            <li><a><FaForward className={paginationStyles.icon} onClick={() => { this.props.clickPage(Math.min(this.props.page*1+1, Math.floor(this.props.total/this.props.perPage))); window.scroll(0, 0); }} /></a></li>,
+            <li><a><FaFastForward className={paginationStyles.icon} onClick={() => { this.props.clickPage(Math.floor(this.props.total/this.props.perPage)); window.scroll(0, 0); }} /></a></li>
+          ]
+        }
+      </ul>
+    </nav>
   }
 }
 

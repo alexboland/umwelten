@@ -68,7 +68,7 @@ class App extends React.Component {
           <FaBars className={appStyle.icon} onClick={this.toggleNav} />
         </div>
         <div className={`${appStyle.logo}`}><Link to='/'>Umwelten</Link></div>
-        <div className={`${appStyle.mainMenu} ${!this.state.expandNav && appStyle.hideNav}`}>
+        <nav className={`${appStyle.mainMenu} ${!this.state.expandNav && appStyle.hideNav}`}>
           <ul>
             { !this.state.user && <li><Link to='/login' onClick={this.closeNav}>Login</Link></li> }
             { !this.state.user && <li><Link to='/signup' onClick={this.closeNav}>Sign Up</Link></li> }
@@ -79,7 +79,7 @@ class App extends React.Component {
             { this.state.user && <li><Link to='/settings' onClick={this.closeNav}>Settings</Link></li> }
             { this.state.user && <li><Link to='/logout' onClick={() => {this.closeNav(); this.logout();} }>Logout</Link></li> }
           </ul>
-        </div>
+        </nav>
       </div>
       <UserContext.Provider value={this.state.user && this.state.user.uuid}>
          <div className={`${appStyle.content}`} onClick={this.closeNav}>
