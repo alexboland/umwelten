@@ -157,7 +157,7 @@ button:active {
   font-family: Gill Sans, Humanist, Sans-Serif;
   font-size: 1.1em;
   font-weight: 300;
-  margin-left: 2em;
+  width: 95%;
 }
 
 h1 {
