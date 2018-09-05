@@ -52,6 +52,17 @@ class UserLibrary extends React.Component {
       });
   }
 
+  componentWillReceiveProps (nextProps) {
+    let self = this;
+    if (nextProps.match.params.user !== this.props.match.params.user) {
+      fetch('/users/profile/' + nextProps.match.params.user, {credentials: 'same-origin'})
+        .then(data => data.json())
+        .then(user => {
+          self.setState({username: user.user.username});
+        });
+     }
+  }
+
   handleRequestAction(requestUuid) {
     this.setState({pendingRequests: this.state.pendingRequests.filter(request => request.uuid != requestUuid)})
   }
