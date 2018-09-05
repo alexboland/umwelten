@@ -42,11 +42,19 @@ class Login extends React.Component {
   render() {
     return <div>
       <h1>Login</h1>
-      <div className={formStyles.loginForm}>
+      <div className={`${formStyles.userForm} ${formStyles.login}`}>
         <ul>
-          <li>Username: <input type="text" onChange={(evt) => {this.setInfo(evt, 'username')} } onKeyPress={this.keyPressed} /></li>
-          <li>Password: <input type="password" onChange={(evt) => {this.setInfo(evt, 'password')}} onKeyPress={this.keyPressed} /></li>
-          <li><button onClick={this.handleSubmit}>Submit</button></li>
+          <li>
+            <span className={formStyles.label}>Username</span>
+            <span><input type="text" onChange={(evt) => {this.setInfo(evt, 'username')} } onKeyPress={this.keyPressed} /></span>
+          </li>
+          <li>
+            <span className={formStyles.label}>Password</span>
+            <span><input type="password" onChange={(evt) => {this.setInfo(evt, 'password')}} onKeyPress={this.keyPressed} /></span>
+          </li>
+          <li>
+            <button className={formStyles.submitBtn} onClick={this.handleSubmit}>Submit</button>
+          </li>
         </ul>
 
         { this.state.error && <span>Invalid username/password combination</span> }

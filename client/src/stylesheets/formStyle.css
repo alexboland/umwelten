@@ -1,12 +1,60 @@
-.loginForm {
-  border: 1px solid #eeeeee;
+.userForm {
+    border: 1px solid #eeeeee;
+    width: 95%;
 }
 
-.loginForm ul {
-  display: block;
-  list-style: none;
+.userForm ul {
+    display: block;
+    list-style: none;
+    padding-left: 1em;
 }
 
-.loginForm li {
-    padding: 0.2em;
+.userForm li {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+.userForm {
+  margin-top: 0.5em;
+}
+
+.userForm input {
+  font-size: 1em;
+}
+
+.label {
+  font-size: 1em;
+}
+
+@media only screen and (min-device-width: 768px) {
+
+  .label {
+    margin-right: 0.4em;
+    text-align: right;
+    display: inline-block;
+  }
+
+  .signup .label {
+    width: 9em;
+  }
+
+  .signup .submitBtn {
+    margin-left: 17.8em;
+  }
+
+  .login .label {
+      width: 5em;
+  }
+
+  .login .submitBtn {
+      margin-left: 13.5em;
+  }
+
+}
+
+@media only screen and (max-device-width: 768px) {
+  .label {
+    display: block;
+
+  }
 }
