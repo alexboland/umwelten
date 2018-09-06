@@ -15,7 +15,7 @@ class PaginationFooter extends React.Component {
             </li>,
             [...Array(Math.min(Math.ceil(this.props.total/this.props.perPage), 5)).keys()]
               .map(index => {
-                let start = Math.min(Math.max(0, this.props.page - 2), Math.floor(this.props.total/this.props.perPage) - 4);
+                let start = Math.min(Math.max(0, this.props.page - 2), Math.max(0, Math.floor(this.props.total/this.props.perPage) - 4));
                 let page = start + index;
                 return <li className={this.props.page == page && paginationStyles.activeLink}>
                   <a onClick={() => { this.props.clickPage(page); window.scroll(0, 0); }}>{page + 1}</a>
