@@ -21,8 +21,8 @@ class PaginationFooter extends React.Component {
                   <a onClick={() => { this.props.clickPage(page); window.scroll(0, 0); }}>{page + 1}</a>
                 </li>
               }),
-            <li><a><FaForward className={paginationStyles.icon} onClick={() => { this.props.clickPage(Math.min(this.props.page*1+1, Math.floor(this.props.total/this.props.perPage))); window.scroll(0, 0); }} /></a></li>,
-            <li><a><FaFastForward className={paginationStyles.icon} onClick={() => { this.props.clickPage(Math.floor(this.props.total/this.props.perPage)); window.scroll(0, 0); }} /></a></li>
+            <li><a onClick={() => { this.props.clickPage(Math.min(this.props.page*1+1, Math.floor(this.props.total/this.props.perPage))); window.scroll(0, 0); }}><FaForward className={paginationStyles.icon} /></a></li>,
+            <li><a onClick={() => { this.props.clickPage(Math.floor(this.props.total/this.props.perPage)); window.scroll(0, 0); }}><FaFastForward className={paginationStyles.icon} /></a></li>
           ]
         }
       </ul>
