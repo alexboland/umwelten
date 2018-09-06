@@ -8,7 +8,7 @@ import FilterForm from './FilterForm.js'
 
 class BrowseBooks extends React.Component {
 
-  state = { books: [], total: 0, perPage: 20, page: 0 };
+  state = { books: [], total: 0, perPage: 20, page: 0, search: {title: '', author: ''} };
 
   handleFilterChange(criterion, query) {
     let self = this;
@@ -46,8 +46,8 @@ class BrowseBooks extends React.Component {
         let books = results.books.map(book => {
           let bookLinks = book.book_links.split('|').map(link => { return {username: link.split(',')[0], user_uuid: link.split(',')[1] } })
           return { volume_uuid: book.volume_uuid, title: book.title, subtitle: book.subtitle, author: book.author, publisher: book.publisher, bookLinks: bookLinks}
-        })
-        return {books: books, total: results.total, page: results.page}
+        });
+        return {books: books, total: results.total, page: results.page, search: options}
       });
   }
 
@@ -56,13 +56,7 @@ class BrowseBooks extends React.Component {
   }
 
   clickPage(page) {
-    this.fetchBooks(page).then(results => this.setState(results));
-  }
-
-  keyPressed(evt) {
-    if (evt.key == 'Enter') {
-      this.fetchBooks(this.state.page).then(results => this.setState(results))
-    }
+    this.fetchBooks(page, this.state.search).then(results => this.setState(results));
   }
 
   render () { return <div>
