@@ -1,11 +1,10 @@
 .addComment {
     overflow: auto;
     margin-top: 1.2em;
-    margin-left: 2em;
 }
 
 .addComment textarea {
-    width: 84%;
+    width: 90%;
     font-size: 0.9em;
     font-family: Arial, Sans-Serif;
     line-height: 1.2em;
@@ -70,7 +69,9 @@
 }
 
 .title input {
-    width: 81.4%;
+    width: 89.3%;
     border: 0.5px solid #555555;
     height: 1.6em;
+    font-size: 1.1em;
+    padding-left: 0.5em;
 }

@@ -20,7 +20,44 @@ router.get('/view/:discussion', function(req, res) {
     Promise.all([discussion, comments]).then( ([[discussion], comments]) => {
       res.send({discussion: discussion, comments: comments});
     })
-})
+});
+
+router.get('/list/:user', function(req, res) {
+
+  let discussionsQuery = knex
+    .select('discussions.uuid', 'discussions.title', 'discussions.volume_uuid', 'volumes.title as volumeTitle')
+    .count({length: 'all_comments.uuid'})
+    .max({last_updated: 'all_comments.updated_at'})
+    .from('discussions')
+    .joinRaw('JOIN comments AS all_comments ON all_comments.discussion_uuid = discussions.uuid')
+    .joinRaw('JOIN (SELECT uuid, author_uuid, discussion_uuid FROM comments as user_comments) AS user_comments ON user_comments.discussion_uuid = discussions.uuid AND user_comments.author_uuid = "' + req.params.user + '"')
+    .innerJoin('volumes', 'volumes.uuid', '=', 'discussions.volume_uuid')
+    .groupBy('discussions.uuid')
+    .orderBy('last_updated', 'DESC');
+
+  discussionsQuery.then(results => {
+    res.send(results);
+  });
+
+});
+
+router.get('/browse', function(req, res) {
+
+  let discussionsQuery = knex
+    .select('discussions.uuid', 'discussions.title', 'discussions.volume_uuid', 'volumes.title as volumeTitle')
+    .count({length: 'all_comments.uuid'})
+    .max({last_updated: 'all_comments.updated_at'})
+    .from('discussions')
+    .joinRaw('JOIN comments AS all_comments ON all_comments.discussion_uuid = discussions.uuid')
+    .innerJoin('volumes', 'volumes.uuid', '=', 'discussions.volume_uuid')
+    .groupBy('discussions.uuid')
+    .orderBy('last_updated', 'DESC');
+
+  discussionsQuery.then(results => {
+    res.send(results);
+  })
+
+});
 
 router.post('/new', function(req, res) {
   let uuid = uuidv4();

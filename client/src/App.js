@@ -21,6 +21,7 @@ import appStyle from './stylesheets/appStyle.css'
 import About from './About.js'
 import UserSettings from './UserSettings.js'
 import Unauthorized from './Unauthorized.js'
+import Notes from './Notes.js'
 import { FaBars } from 'react-icons/fa';
 
 
@@ -76,6 +77,7 @@ class App extends React.Component {
             <li><Link to='/browseBooks' onClick={this.closeNav}>Browse Books</Link></li>
             { this.state.user && <li><Link to='/searchVolumes' onClick={this.closeNav}>Add Books</Link></li> }
             { this.state.user && <li><Link to='/searchUsers' onClick={this.closeNav}>Search Users</Link></li> }
+            { this.state.user && <li><Link to='/notes/myNotes' onClick={this.closeNav}>Notes</Link></li> }
             { this.state.user && <li><Link to='/settings' onClick={this.closeNav}>Settings</Link></li> }
             { this.state.user && <li><Link to='/logout' onClick={() => {this.closeNav(); this.logout();} }>Logout</Link></li> }
           </ul>
@@ -96,6 +98,7 @@ class App extends React.Component {
             <Route path={'/discussions/:volume/new'} component={NewVolumeDiscussionPage} />
             <Route path={'/searchUsers'} component={BrowseUsers} />
             <Route path={'/settings'} component={UserSettings} />
+            <Route path={'/notes'} component={Notes} />
           </Switch>
          </div>
       </UserContext.Provider>

@@ -46,4 +46,15 @@ router.get('/basicInfo/:volume', function(req, res){
   })
 })
 
+router.get('/autoComplete', function(req, res) {
+  knex
+    .select('uuid', 'title')
+    .from('volumes')
+    .whereRaw('volumes.title LIKE "' + '%' + req.query.prefix + '%"')
+    .limit(10)
+    .then(volumes => {
+      res.send(volumes);
+    })
+});
+
 module.exports = router;
