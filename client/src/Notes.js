@@ -10,26 +10,27 @@ import NewNote from './NewNote.js'
 import appStyles from './stylesheets/appStyle.css'
 import libraryStyles from './stylesheets/userLibrary.css'
 import listStyles from './stylesheets/listStyle.css'
-import VolumeDiscussionPage from './VolumeDiscussionPage.js'
+import notesStyles from './stylesheets/notesPage.css'
+import ViewNote from './ViewNote.js'
 import { FaCaretRight} from 'react-icons/fa';
 import { FaCaretDown } from 'react-icons/fa';
 
 class NotesList extends React.Component {
 
   render () {
-    return <ul className={listStyles.defaultList}>
+    return <ul className={notesStyles.notesList}>
       { this.props.notes.map(note =>
-        <li className={listStyles.defaultListItem}>
-          <ul>
-            <li>
-              <Link to={'/notes/view/' + note.uuid}>{note.title}</Link>
-              {' ('}
-              <Link to={'/volumes/' + note.volume_uuid}>{note.volumeTitle}</Link>
-              {')'}
-            </li>
-            <li>{note.length + ' comments'}</li>
-            <li>{'Last updated: ' + note.last_updated}</li>
-          </ul>
+        <li className={notesStyles.noteItem}>
+          <div className={notesStyles.header}><Link to={'/notes/view/' + note.uuid}>{note.title}</Link>
+            {' ('}
+            <Link to={'/volumes/' + note.volume_uuid}>{note.volumeTitle}</Link>
+            {')'}
+          </div>
+          <div className={notesStyles.text}>{note.initial_text}</div>
+          <div className={notesStyles.footer}>{note.length + ' comments'}</div>
+          <div className={notesStyles.footer}>
+            {'Last updated: ' + new Date(note.last_updated).toDateString() + ' at ' + new Date(note.last_updated).toTimeString()}
+          </div>
         </li>
       )}
     </ul>
@@ -54,13 +55,21 @@ class MyNotes extends React.Component {
     fetch('/discussions/list/' + nextProps.user, {credentials: 'same-origin'})
       .then(results => results.json())
       .then(results => {
-        this.setState({notes: results});
+        let notes = results.map(note => {
+          let preview = note.initial_text.substring(0, 1000);
+          if (note.initial_text.indexOf('\n') > 0) { preview = preview.substring(0, note.initial_text.indexOf('\n')) };
+          if (preview.length < note.initial_text.length) { preview += '...'; }
+          return {title: note.title, author: note.author, volume_uuid: note.volume_uuid, volumeTitle: note.volumeTitle,
+            initial_text: preview, length: note.length, last_updated: note.last_updated, uuid: note.uuid}
+        });
+        this.setState({notes: notes});
       });
   }
 
   render () {
     return <div>
       <h1>My Notes</h1>
+      <h2>(Notes You've Written or Commented On)</h2>
       <NotesList notes={this.state.notes} />
     </div>
   }
@@ -74,7 +83,14 @@ class BrowseNotes extends React.Component {
     fetch('/discussions/browse', {credentials: 'same-origin'})
       .then(results => results.json())
       .then(results => {
-        this.setState({notes: results});
+        let notes = results.map(note => {
+          let preview = note.initial_text.substring(0, 1000);
+          if (note.initial_text.indexOf('\n') > 0) { preview = preview.substring(0, note.initial_text.indexOf('\n')) };
+          if (preview.length < note.initial_text.length) { preview += '...'; }
+          return {title: note.title, author: note.author, volume_uuid: note.volume_uuid, volumeTitle: note.volumeTitle,
+            initial_text: preview, length: note.length, last_updated: note.last_updated, uuid: note.uuid}
+        });
+        this.setState({notes: notes});
       });
   }
 
@@ -115,7 +131,7 @@ class Notes extends React.Component {
               <Route path={'/notes/myNotes/'} render={() => <MyNotes user={currentUser} />} />
               <Route path={'/notes/browseNotes'} component={BrowseNotes} />
               <Route path={'/notes/new'} component={NewNote} />
-              <Route path={'/notes/view/:discussion'} component={VolumeDiscussionPage} />
+              <Route path={'/notes/view/:discussion'} component={ViewNote} />
             </Switch>
           </Router>
         }

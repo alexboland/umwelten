@@ -39,15 +39,14 @@ class VolumePage extends React.Component {
           <Link to={'/users/' + owner.user_uuid + '/bookshelf'}>{owner.username}</Link>
         </li> )}
       </ul>
-      <h1>Discussions:</h1>
+      <h1>Notes:</h1>
       <ul>
         {this.state.discussions.map(discussion => { return <li>
-          <Link to={'/discussions/view/' + discussion.discussion_uuid}>
+          <Link to={'/notes/view/' + discussion.discussion_uuid}>
             {discussion.discussion_title + '(' + discussion.length + ' comments)'}
           </Link>
         </li>
         })}
-        <li><Link to={'/discussions/' + this.props.match.params.volume + '/new'}>Start a new discussion</Link></li>
       </ul>
     </div>
   </div>

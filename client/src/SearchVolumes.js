@@ -81,10 +81,8 @@ class SearchVolumes extends React.Component {
         </li>) }
       </ul>
       <Modal className={modalStyles.modalDefault} isOpen={this.state.modalOpen}>
-        <ul>
-          <li>This book has already been added to your bookshelf.  Owning multiple copies of books is not yet supported.</li>
-          <li><button onClick={() => { this.setState({modalOpen: false}) }}>OK</button></li>
-        </ul>
+        <div>This book has already been added to your bookshelf.  Owning multiple copies of books is not yet supported.</div>
+        <div><button onClick={() => { this.setState({modalOpen: false}) }}>OK</button></div>
       </Modal>
     </div>
   }

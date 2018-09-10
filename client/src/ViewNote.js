@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import discussionStyles from './stylesheets/discussionStyle.css'
 
-class VolumeDiscussionPage extends React.Component {
+class ViewNote extends React.Component {
 
   state = {volumeTitle: '', discussionTitle: '', comments: [], newComment: ''};
 
@@ -10,7 +10,6 @@ class VolumeDiscussionPage extends React.Component {
     fetch('/discussions/view/' + this.props.match.params.discussion, {credentials: 'same-origin'})
       .then(results => results.json())
       .then(results => {
-        console.log(results);
         this.setState({comments: results.comments, discussionTitle: results.discussion.discussion_title, volumeUuid: results.discussion.volume_uuid, volumeTitle: results.discussion.volume_title, volumeUuid: results.discussion.volume_uuid})
       });
   }
@@ -36,8 +35,8 @@ class VolumeDiscussionPage extends React.Component {
 
   render () { return <div>
       <div>
-        <h1><Link to={'/volumes/' + this.state.volumeUuid}>{this.state.volumeTitle}</Link></h1>
-        <h2>{this.state.discussionTitle}</h2>
+        <h2><Link to={'/volumes/' + this.state.volumeUuid}>{this.state.volumeTitle}</Link></h2>
+        <h1>{this.state.discussionTitle}</h1>
       </div>
       <div>
         {this.state.comments.map(comment => <div className={discussionStyles.comment}>
@@ -56,4 +55,4 @@ class VolumeDiscussionPage extends React.Component {
   }
 }
 
-export default VolumeDiscussionPage;
+export default ViewNote;

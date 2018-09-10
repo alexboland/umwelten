@@ -3,7 +3,7 @@
     margin-top: 20%;
     margin-left: 20%;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    padding: 4px;
+    padding: 1em;
     width: 32em;
     border: 1px solid #000000;
     outline: none;
@@ -11,11 +11,7 @@
     opacity: 0.8;
 }
 
-.modalDefault ul {
-    list-style: none;
-}
-
-.modalDefault ul li {
+.modalDefault div {
     margin-bottom: 0.4em;
 }
 

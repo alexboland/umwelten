@@ -13,8 +13,7 @@ import Login from './Login.js'
 import UserContext from './UserContext.js'
 import BrowseBooks from './BrowseBooks.js'
 import VolumePage from './VolumePage.js'
-import VolumeDiscussionPage from './VolumeDiscussionPage.js'
-import NewVolumeDiscussionPage from './NewVolumeDiscussionPage.js'
+import ViewNote from './ViewNote.js'
 import SignUp from './SignUp.js'
 import BrowseUsers from './BrowseUsers.js'
 import appStyle from './stylesheets/appStyle.css'
@@ -94,8 +93,7 @@ class App extends React.Component {
             <Route path='/searchVolumes' component={SearchVolumes} />
             <Route path='/browseBooks' component={BrowseBooks} />
             <Route path={'/volumes/:volume'} component={VolumePage} />
-            <Route path={'/discussions/view/:discussion'} component={VolumeDiscussionPage} />
-            <Route path={'/discussions/:volume/new'} component={NewVolumeDiscussionPage} />
+            <Route path={'/discussions/view/:discussion'} component={ViewNote} />
             <Route path={'/searchUsers'} component={BrowseUsers} />
             <Route path={'/settings'} component={UserSettings} />
             <Route path={'/notes'} component={Notes} />

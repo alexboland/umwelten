@@ -1,15 +1,47 @@
-.title {
-
+.notesList {
+    display: block;
+    font-size: 1em;
+    list-style: none;
+    margin-left: -2.5em;
 }
 
-.volume {
-
+.notesList li {
+    list-style: none;
 }
 
-.author {
-
+.noteItem {
+    border: 0.03em solid #dedede;
+    margin-bottom: 0.6em;
+    padding: 1em;
+    background-color: #fafafa;
+    font-size: 0.95em;
 }
 
-.noteLength {
+.noteItem .text {
+    font-size: 0.93em;
+    color: #363636;
+    line-height: 1.5em;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    white-space: pre-line;
+    opacity: 0.9;
+}
 
+.noteItem .header {
+}
+
+.noteItem .footer {
+    font-size: 0.95em;
+}
+
+@media only screen and (max-device-width: 768px) {
+    .notesList {
+        width: 96%;
+    }
+}
+
+@media only screen and (min-device-width: 768px) {
+    .notesList {
+        width: 100%;
+    }
 }

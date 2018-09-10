@@ -25,14 +25,17 @@ router.get('/view/:discussion', function(req, res) {
 router.get('/list/:user', function(req, res) {
 
   let discussionsQuery = knex
-    .select('discussions.uuid', 'discussions.title', 'discussions.volume_uuid', 'volumes.title as volumeTitle')
-    .count({length: 'all_comments.uuid'})
-    .max({last_updated: 'all_comments.updated_at'})
+    .select('discussions.uuid', 'discussions.title', 'discussions.volume_uuid', 'volumes.title as volumeTitle',
+      'all_comments.length as length', 'all_comments.last_updated as last_updated', 'all_comments.started_at as started_at',
+      'first_comment.text as initial_text')
     .from('discussions')
-    .joinRaw('JOIN comments AS all_comments ON all_comments.discussion_uuid = discussions.uuid')
+    .joinRaw('JOIN (SELECT discussion_uuid, count(uuid) length, max(updated_at) last_updated, min(updated_at) started_at ' +
+      'FROM comments GROUP BY discussion_uuid) ' +
+      'AS all_comments ON all_comments.discussion_uuid = discussions.uuid')
+    .joinRaw('JOIN comments AS first_comment ' +
+      'ON first_comment.updated_at = all_comments.started_at AND first_comment.discussion_uuid = all_comments.discussion_uuid')
     .joinRaw('JOIN (SELECT uuid, author_uuid, discussion_uuid FROM comments as user_comments) AS user_comments ON user_comments.discussion_uuid = discussions.uuid AND user_comments.author_uuid = "' + req.params.user + '"')
     .innerJoin('volumes', 'volumes.uuid', '=', 'discussions.volume_uuid')
-    .groupBy('discussions.uuid')
     .orderBy('last_updated', 'DESC');
 
   discussionsQuery.then(results => {
@@ -44,13 +47,16 @@ router.get('/list/:user', function(req, res) {
 router.get('/browse', function(req, res) {
 
   let discussionsQuery = knex
-    .select('discussions.uuid', 'discussions.title', 'discussions.volume_uuid', 'volumes.title as volumeTitle')
-    .count({length: 'all_comments.uuid'})
-    .max({last_updated: 'all_comments.updated_at'})
+    .select('discussions.uuid', 'discussions.title', 'discussions.volume_uuid', 'volumes.title as volumeTitle',
+      'all_comments.length as length', 'all_comments.last_updated as last_updated', 'all_comments.started_at as started_at',
+      'first_comment.text as initial_text')
     .from('discussions')
-    .joinRaw('JOIN comments AS all_comments ON all_comments.discussion_uuid = discussions.uuid')
+    .joinRaw('JOIN (SELECT discussion_uuid, count(uuid) length, max(updated_at) last_updated, min(updated_at) started_at ' +
+      'FROM comments GROUP BY discussion_uuid) ' +
+      'AS all_comments ON all_comments.discussion_uuid = discussions.uuid')
+    .joinRaw('JOIN comments AS first_comment ' +
+      'ON first_comment.updated_at = all_comments.started_at AND first_comment.discussion_uuid = all_comments.discussion_uuid')
     .innerJoin('volumes', 'volumes.uuid', '=', 'discussions.volume_uuid')
-    .groupBy('discussions.uuid')
     .orderBy('last_updated', 'DESC');
 
   discussionsQuery.then(results => {
