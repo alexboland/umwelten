@@ -41,18 +41,13 @@ class MyNotes extends React.Component {
 
   state = {notes: []};
 
-  componentDidMount () {
-    if (this.props.user) {
-      fetch('/discussions/list/' + this.props.user, {credentials: 'same-origin'})
-        .then(results => results.json())
-        .then(results => {
-          this.setState({notes: results});
-        });
-    }
+  constructor(props){
+    super();
+    this.fetchNotes = this.fetchNotes.bind(this);
   }
 
-  componentWillReceiveProps (nextProps) {
-    fetch('/discussions/list/' + nextProps.user, {credentials: 'same-origin'})
+  fetchNotes (user) {
+    fetch('/discussions/list/' + user, {credentials: 'same-origin'})
       .then(results => results.json())
       .then(results => {
         let notes = results.map(note => {
@@ -64,6 +59,14 @@ class MyNotes extends React.Component {
         });
         this.setState({notes: notes});
       });
+  }
+
+  componentDidMount () {
+    if (this.props.user) { this.fetchNotes(this.props.user); }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.user) { this.fetchNotes(nextProps.user); }
   }
 
   render () {
