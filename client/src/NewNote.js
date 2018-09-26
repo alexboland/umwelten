@@ -71,7 +71,7 @@ class NewNote extends React.Component {
           onChange={newValue => { this.setState({volume: newValue.value}) }}
           className={acStyles.acInput}
           placeholder={'Specify a book'}
-          searchPromptText={'aaa'}
+          value={ this.props.defaultBook && {value: this.props.defaultBook.uuid, label: this.props.defaultBook.title} }
         />
       </div>
       <div className={discussionStyles.addComment}>
@@ -82,7 +82,7 @@ class NewNote extends React.Component {
         <div className={discussionStyles.createButtons}>
           <div><button onClick={this.createNote.bind(this)}>Save</button></div>
         </div>
-        {this.state.redirectTo && <Redirect to={'/discussions/view/' + this.state.redirectTo} />}
+        {this.state.redirectTo && <Redirect to={'/notes/view/' + this.state.redirectTo} />}
       </div>
       <Modal className={modalStyles.modalDefault} isOpen={this.state.modalOpen}>
         <div>

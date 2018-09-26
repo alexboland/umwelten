@@ -108,7 +108,7 @@ class BrowseNotes extends React.Component {
 
 class Notes extends React.Component {
 
-  state = { expandNav: false }
+  state = { expandNav: false };
 
   toggleNav () {
     this.setState({expandNav: !this.state.expandNav})
@@ -133,7 +133,7 @@ class Notes extends React.Component {
             <Switch>
               <Route path={'/notes/myNotes/'} render={() => <MyNotes user={currentUser} />} />
               <Route path={'/notes/browseNotes'} component={BrowseNotes} />
-              <Route path={'/notes/new'} component={NewNote} />
+              <Route path={'/notes/new'} render={() => <NewNote defaultBook={this.props.location.state && this.props.location.state.defaultBook} /> } />
               <Route path={'/notes/view/:discussion'} component={ViewNote} />
             </Switch>
           </Router>

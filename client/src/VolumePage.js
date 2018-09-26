@@ -47,6 +47,9 @@ class VolumePage extends React.Component {
           </Link>
         </li>
         })}
+        <li>
+          <Link to={ {pathname: '/notes/new/', state: {defaultBook: { uuid: this.props.match.params.volume, title: this.state.title }}} }>Create a new note</Link>
+        </li>
       </ul>
     </div>
   </div>
