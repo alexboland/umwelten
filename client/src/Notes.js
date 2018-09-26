@@ -108,7 +108,7 @@ class BrowseNotes extends React.Component {
 
 class Notes extends React.Component {
 
-  state = { expandNav: false };
+  state = { expandNav: false }
 
   toggleNav () {
     this.setState({expandNav: !this.state.expandNav})
