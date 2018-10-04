@@ -61,6 +61,16 @@ router.post('/new', function(req, res, next) {
       return knex('users').where({username: req.body.username})
     })
     .then(([user]) => {
+      console.log("uuid: " + user.uuid)
+      let arr = [];
+      let str = Math.random().toString(36).substring(2, 5).toUpperCase() + Math.random().toString(36).substring(2, 5).toUpperCase();
+      arr.push({oid: str, user_uuid: user.uuid});
+      str = Math.random().toString(36).substring(2, 5).toUpperCase() + Math.random().toString(36).substring(2, 5).toUpperCase();
+      arr.push({oid: str, user_uuid: user.uuid});
+
+      return Promise.all([knex('activation_codes').insert(arr), user]);
+    })
+    .then(([insertCodes, user]) => {
       req.session.user = user;
       res.send({success: true, user: user})
     })
@@ -175,6 +185,14 @@ router.get('/list', function(req, res) {
     .catch(err => {
       console.log(err);
       res.send({error: err})
+    });
+});
+
+router.get('/activationCodes/', function(req, res) {
+  knex('activation_codes')
+    .where('user_uuid', '=', req.session.user.uuid)
+    .then(results => {
+      res.send({codes: results})
     });
 });
 

@@ -3,7 +3,7 @@ import settingsStyles from './stylesheets/userSettings.css'
 
 class UserSettings extends React.Component {
 
-  state = {error: '', success: ''};
+  state = {error: '', success: '', activationCodes: []};
 
   constructor(props){
     super();
@@ -33,9 +33,27 @@ class UserSettings extends React.Component {
       });
   }
 
+  componentDidMount () {
+    fetch('/users/activationCodes', {credentials: 'same-origin'})
+      .then(results => results.json())
+      .then(results => {
+        this.setState({activationCodes: results.codes})
+      })
+  }
+
   render() {
     return <div>
       <h1>Settings</h1>
+      <div className={settingsStyles.settingsSection}>
+        <h2>Activation Codes (For Inviting Your Friends!)</h2>
+        <ul>
+          {this.state.activationCodes.map(code =>
+            <li>{code.oid}</li>
+          )}
+        </ul>
+        {this.state.activationCodes.length < 1 && "Looks like you don't have any activation codes left."}
+
+      </div>
       <div className={settingsStyles.settingsSection}>
         <h2>Change Password</h2>
         <form onSubmit={this.handleSubmit}>
