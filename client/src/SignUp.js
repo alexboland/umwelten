@@ -17,7 +17,6 @@ class SignUp extends React.Component {
   }
 
   keyPressed (event) {
-    console.log(event);
     if (event.key == 'Enter') {
       this.handleSubmit(event);
     }

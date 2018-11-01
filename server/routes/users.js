@@ -61,7 +61,6 @@ router.post('/new', function(req, res, next) {
       return knex('users').where({username: req.body.username})
     })
     .then(([user]) => {
-      console.log("uuid: " + user.uuid)
       let arr = [];
       let str = Math.random().toString(36).substring(2, 5).toUpperCase() + Math.random().toString(36).substring(2, 5).toUpperCase();
       arr.push({oid: str, user_uuid: user.uuid});
@@ -183,7 +182,6 @@ router.get('/list', function(req, res) {
       res.send({users: users, total: total[0]['count(*)'], page: page})
     })
     .catch(err => {
-      console.log(err);
       res.send({error: err})
     });
 });
@@ -194,6 +192,17 @@ router.get('/activationCodes/', function(req, res) {
     .then(results => {
       res.send({codes: results})
     });
+});
+
+router.get('/autoComplete', function(req, res) {
+  knex
+    .select('uuid', 'username')
+    .from('users')
+    .whereRaw('users.username LIKE "' + '%' + req.query.prefix + '%"')
+    .limit(10)
+    .then(users => {
+      res.send(users);
+    })
 });
 
 module.exports = router;
