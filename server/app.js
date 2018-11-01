@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, '../client/public')));
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['bloop'],
+  keys: [process.env.SESSION_SECRET],
 
   // Cookie Options
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
@@ -49,5 +49,6 @@ var server = http.createServer(app);
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Server listening at", addr.address + ":" + addr.port);
+  console.log(process.env.SESSION_SECRET)
 });
 
