@@ -16,7 +16,6 @@ class ViewProfile extends React.Component {
     return <div className={profileStyles.userProfile}>
       <h1>{this.props.userInfo.username}</h1>
       <h2>{this.props.userInfo.full_name}</h2>
-      <h2>{this.props.userInfo.email_address}</h2>
       <p>{this.props.userInfo.location}</p>
       <p>{this.props.userInfo.bio}</p>
       <UserContext>{currentUser => {return this.props.user == currentUser && <Link to={'/users/' + this.props.user + '/profile/editProfile'}>Edit Profile</Link>}}
