@@ -1,0 +1,45 @@
+.participants {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.participants li {
+  display: inline-block;
+  padding-right: 0.6em;
+  font-size: 1.1em;
+}
+
+.message {
+    display: block;
+    border-bottom: 1px solid #dddddd;
+    font-family: Helvetica, Neo-Grotesque, Sans-Serif;
+    background: hsl(0, 0%, 99%);
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    margin-left: -1em;
+    padding-right: 0.5em;
+}
+
+.messageBody {
+    padding-bottom: 0.8em;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.4em;
+    white-space: pre-line;
+}
+
+.messageHeading {
+    font-weight: 500;
+    padding-bottom: 0.5em;
+    font-size: 1.4em;
+}
+
+.messageFooter {
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.9em;
+    line-height: 1.2em;
+
+}

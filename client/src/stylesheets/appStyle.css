@@ -142,15 +142,25 @@ button {
     text-decoration: none;
     vertical-align: middle;
 }
-button:hover {
+button[enabled]:hover {
     border-top-color: #000000;
     background: #000000;
     color: #ccc;
     cursor:pointer;
 }
+
+button[disabled]:hover {
+    color:#000000;
+    cursor:auto;
+}
+
 button:active {
     border-top-color: #ffffff;
     background: #ffffff;
+}
+
+button:disabled {
+    background: #b3b3b3;
 }
 
 .about {
