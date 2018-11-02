@@ -52,6 +52,9 @@ router.get('/conversations/view/:conversation', function(req, res) {
             .where('uuid', '=', req.params.conversation)
             .limit(1),
           knex('user_conversation_junctions')
+            .innerJoin('users', 'users.uuid', '=', 'user_uuid')
+            .where({conversation_uuid: junction.conversation_uuid}),
+          knex('user_conversation_junctions')
             .where({conversation_uuid: junction.conversation_uuid, user_uuid: junction.user_uuid})
             .update({ unread_messages: 0 })
         ]);
@@ -59,10 +62,11 @@ router.get('/conversations/view/:conversation', function(req, res) {
         throw('Cannot find conversation'); //Pretend it doesn't exist if the user isn't authorized
       }
     })
-    .then(([messages, conversation, junctionUpdate]) => {
+    .then(([messages, [conversation], junctions]) => {
       res.send({
         messages: messages.map(message => ({...message, ...{content: String.fromCharCode.apply(null, message.content)}})),
-        conversation: {...conversation[0], ...{subject: String.fromCharCode.apply(null, conversation[0].subject)}}
+        subject: String.fromCharCode.apply(null, conversation.subject),
+        participants: junctions.map(junction => ({username: junction.username, user_uuid: junction.user_uuid}) )
       });
     })
     .catch(err => {
@@ -104,7 +108,7 @@ router.post('/conversations/messages/new', function(req, res){
     knex('direct_messages')
       .insert({
         uuid: uuid,
-        content: knex.raw("AES_ENCRYPT('" + req.body.messageText + "',UNHEX(SHA2('" + "testing" + "',512)))"),
+        content: knex.raw("AES_ENCRYPT('" + req.body.messageText + "',UNHEX(SHA2('" + process.env.DM_ENCRYPTION_SECRET + "',512)))"),
         conversation_uuid: req.body.conversationUuid,
         sender_uuid: req.session.user.uuid
       }),
