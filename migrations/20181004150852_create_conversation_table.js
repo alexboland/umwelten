@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('conversations', function (t) {
     t.string('uuid').primary();
-    t.string('subject');
+    t.binary('subject');
     t.timestamps(true, true);
   })
 };

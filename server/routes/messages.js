@@ -8,8 +8,8 @@ const crypto = require('@trust/webcrypto')
 router.get('/conversations/all/', function(req, res) {
 
   let conversationsQuery = knex
-    .select('conversations.uuid', 'conversations.subject', 'last_message.updated_at as updated_at',
-      'recipients.usernames', 'user_conversation_junctions.unread_messages')
+    .select('conversations.uuid', knex.raw("AES_DECRYPT(subject,unhex(SHA2('" + process.env.DM_ENCRYPTION_SECRET + "', 512))) as subject"),
+      'last_message.updated_at as updated_at', 'recipients.usernames', 'user_conversation_junctions.unread_messages')
     .from('conversations')
     .joinRaw('JOIN user_conversation_junctions ON user_conversation_junctions.user_uuid = "' + req.session.user.uuid +
       '" AND user_conversation_junctions.conversation_uuid = conversations.uuid')
@@ -26,7 +26,9 @@ router.get('/conversations/all/', function(req, res) {
 
   conversationsQuery
     .then(conversations => {
-      res.send(conversations);
+      res.send(conversations.map(conversation =>
+        ({...conversation, ...{subject: String.fromCharCode.apply(null, conversation.subject) } })
+      ));
     });
 
 });
@@ -45,7 +47,8 @@ router.get('/conversations/view/:conversation', function(req, res) {
             .innerJoin('users', 'sender_uuid', '=', 'users.uuid')
             .where('conversation_uuid', '=', req.params.conversation)
             .orderBy('updated_at', 'ASC'),
-          knex('conversations')
+          knex.select(knex.raw("AES_DECRYPT(subject,unhex(SHA2('" + process.env.DM_ENCRYPTION_SECRET + "', 512))) as subject"))
+            .from('conversations')
             .where('uuid', '=', req.params.conversation)
             .limit(1),
           knex('user_conversation_junctions')
@@ -58,9 +61,8 @@ router.get('/conversations/view/:conversation', function(req, res) {
     })
     .then(([messages, conversation, junctionUpdate]) => {
       res.send({
-        messages: messages.map(message =>
-          Object.assign(message, {content: String.fromCharCode.apply(null, message.content)})),
-        conversation: conversation[0]
+        messages: messages.map(message => ({...message, ...{content: String.fromCharCode.apply(null, message.content)}})),
+        conversation: {...conversation[0], ...{subject: String.fromCharCode.apply(null, conversation[0].subject)}}
       });
     })
     .catch(err => {
@@ -70,7 +72,9 @@ router.get('/conversations/view/:conversation', function(req, res) {
 
 router.post('/conversations/new', function(req, res) {
   let uuid = uuidv4();
-  knex('conversations').insert({uuid: uuid, subject: req.body.title})
+  knex('conversations').insert({
+    uuid: uuid,
+    subject: knex.raw("AES_ENCRYPT('" + req.body.title + "',UNHEX(SHA2('" + process.env.DM_ENCRYPTION_SECRET + "',512)))")})
     .then(results =>
       Promise.all(
         [knex('direct_messages').insert({
